@@ -1,0 +1,5197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>stress</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&display=swap&family=Metal+Mania&family=Permanent+Marker&family=Tourney:wght@100&family=Trade+Winds&display=swap&family=Playball&display=swap&family=Metal&family=Playball&display=swap&family=Akronim&family=Metal&family=Playball&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Merienda+One&family=Yellowtail&display=swap&family=Ewert&family=Permanent+Marker&family=Tourney:wght@100&family=Trade+Winds&display=swap&family=Metal&family=Otomanopee+One&family=Playball&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Merienda+One&family=Vampiro+One&family=Yellowtail&display=swap&family=Zen+Tokyo+Zoo&display=swap&family=Fugaz+One&display=swap&family=Tourney:wght@100&display=swap&family=Creepster&family=Permanent+Marker&family=Tourney:wght@100&display=swap&family=Trade+Winds&display=swap&&family=Diplomata+SC&family=Permanent+Marker&family=Tourney:wght@100&family=Trade+Winds&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  
+
+  nav {
+    background-color:#382916; 
+     padding: 1rem; 
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+
+  }
+ 
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    
+  }
+    
+  .page2{
+    padding: 2rem;
+    text-align: center;
+  }
+    
+  .header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .notification-icon,
+  .profile-icon,
+  .nav-icon span {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .nav-icon {
+    display: none;
+  }
+  
+  .user-nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+  }
+  .user-nav-links.active {
+    display: flex;
+    top: 60px;
+    right: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-icon {
+      display: block;
+    }
+    .user-nav-links {
+      padding: 10px 0;
+      top: -100%;
+      flex-direction: column;
+      position: absolute;
+      right: 0;
+      transition: right 0.3s ease;
+      background-color: white;
+      width: 100%;
+      display: none;
+    }
+  }
+  
+  /* Notification Container */
+  .notification-container,
+  .profile-container {
+    position: fixed;
+    top: 60px;
+    right: -400px;
+    width: 300px;
+    height: calc(100vh - 60px);
+    background-color: aliceblue;
+    background-position: center;
+    background-size: cover;
+    color:black;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    z-index: 999;
+
+  }
+  
+  .notification-container h2,
+  .profile-container h2 {
+    margin-bottom: 15px;
+  }
+  
+  .notification-content,
+  .profile-content {
+    overflow-y: auto;
+    max-height: calc(100vh - 140px);
+  }
+  .profile-content p {
+    color: black;
+  }
+  .pf-cont {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: space-between;
+  }
+  .close-btn2 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background-color: darkred;
+    height: 40px;
+    width: 40px;
+  }
+  
+  .logout-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color:brown;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* Overlay for dark theme */
+  .overlay {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  .overlay.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .notification-container.show,
+  .profile-container.show {
+    right: 0;
+  }
+  
+  .modeToggle-icon {
+    /* background-color: #000; */
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    border-radius: 50%;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 50%;
+    bottom: 45%;
+    right: 2px;
+    padding: 5px;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+  }
+  
+  body.dark-mode .modeToggle-icon {
+    background-color: #fff;
+  }
+  
+  .toggle-moon-icon {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    color: #000;
+  }
+  .toggle-sun-icon {
+    display: block;
+    height: 40px;
+    width: 40px;
+    color: #fff;
+  }
+  
+  body.dark-mode .page {
+    background-color: #000;
+    color: #fff;
+  }
+  
+  body.light-mode .toggle-moon-icon {
+    display: none;
+    /* width: 30px; */
+  }
+  
+  body.dark-mode .toggle-moon-icon {
+  }
+  
+  body.dark-mode .toggle-sun-icon {
+    display: none;
+    /* width: 30px; */
+  }
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    background:whitesmoke;
+    height: 60px;
+    
+  }
+  .general-header .logo {
+    font-size: 3.5rem;
+    font-family: 'Playball', cursive;
+    color:salmon;
+  }
+  
+  
+  .general-header .logo i {
+    color: white;
+  }
+  .general-header{
+    height: 80px;
+  }
+  .user-header .logo {
+    font-size: 3.5rem;
+    font-family: 'Playball', cursive;
+    color:salmon;
+  }
+  .user-header .logo i {
+    color: white;
+  }
+  .user-header{
+    height: 80px;
+  }
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  :root {
+    --orange: #ff7800;
+    --blacl: #130f40;
+    --light-color: #666;
+    --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    --border: 0.2rem solid rgba(0, 0, 0, 0.1);
+    --outline: 0.1rem solid rgba(0, 0, 0, 0.1);
+    --outline-hover: 0.2rem solid var(var(--black));
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all 0.2s linear;
+    font-family: "Poppins", sans-serif;
+  }
+  /* .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+  }
+  
+  .header .logo {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: black;
+  }
+  .header .logo i {
+    color: darkmagenta;
+  }
+  .header .navbar a {
+    font-size: 1.5rem;
+    margin: 0 1rem;
+    color: var(--black);
+  }
+  .header .navbar a:hover {
+    color: orangered;
+  }
+   */
+  .btn {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: 0.2rem solid black;
+    color: brown;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: black;
+    color: #fff;
+  }
+  /* login-page */
+  .login {
+    text-align: center;
+    position: relative;
+    width: 400px;
+    min-height: 500px;
+    background:white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.444);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px 0;
+    
+    
+    
+  }
+  .page1 {
+    
+    text-align: center;
+    background-color:blanchedalmond;
+    
+      
+    
+  }
+  
+  .page1 h1{
+    color:salmon;
+    font-size: 3rem;
+  }
+  
+  /* login */
+   
+  .login .form-box {
+    width: 100%;
+    padding: 40px;
+  }
+  .form-box h2 {
+    font-size: 2rem;
+    color: salmon;
+    text-align: center;
+  }
+  .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #382916;
+    margin: 30px 0;
+  }
+  .input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color:salmon;
+    font-weight: 500;
+    pointer-events: none;
+    transition: -5px;
+  }
+  .input-box input:focus ~ label,
+  .input-box input:valid ~ label {
+    top: -5px;
+  }
+  .input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color:salmon;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+  }
+  .input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2rem;
+    color:salmon;
+    line-height: 57px;
+  }
+  .button {
+    width: 100%;
+    height: 45px;
+    background:salmon;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-style: 1em;
+    color: #fff;
+    font-weight: 500;
+  }
+  
+  /*  */
+  .logo img {
+    width: 70px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  .logo h2 {
+    color: blue;
+  }
+  .navigation a {
+    position: relative;
+    font-size: 1.1rem;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+  }
+  .navigation a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: darkmagenta;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.5s;
+  }
+  .navigation a:hover:after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .navigation .btn-logo {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: black;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: 0.5s;
+  }
+  .navigation .btn-logo:hover {
+    background: #0e686e;
+    color: #162938;
+  }
+  /* HOME */
+  /* .home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("images/7.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  
+    
+    
+  } */
+  
+  
+  /* .home  .col-2  h3 {
+    color: darkmagenta;
+    font-size: 6rem;
+    text-align: center;
+    font-weight: bold;
+    
+  }
+  .home .col-2 p{
+    font-family:'Merienda One', cursive;
+    color:black;
+    font-weight: 600;
+    font-size: 4rem;
+  } */
+  
+  /* log.html */
+  
+  .log-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    background: lightgrey; 
+    height: 100px;
+  }
+  
+  .log-header .logo {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: black;
+  }
+  .log-header .logo i {
+    color: darkmagenta;
+  }
+  .log-header .navbar a {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: darkmagenta;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.5s;
+  }
+  .log-header .navbar a:hover {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  /* / */
+  
+  .form {
+    --bg-light: #efefef;
+    --bg-dark: #707070;
+    --clr: salmon;
+    --clr-alpha: #9c9c9c60;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .form .input-span {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .input-span input{
+    height: 40px;
+    width: 20px;
+    
+  }
+  .form .input-span2 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+  
+  }
+  .input-span2 input{
+    height: 20px;
+    width: 20px;
+  }
+  .form input[type="text"],
+  .form input[type="email"],
+  .form input[type="password"] {
+    border-radius: 0.5rem;
+    padding: 1rem 0.75rem;
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--clr-alpha);
+    outline: 2px solid var(--bg-dark);
+  }
+  .form input[type="text"]:focus,
+  .form input[type="email"]:focus,
+  .form input[type="password"]:focus {
+    outline: 2px solid var(--clr);
+  }
+  
+  .label {
+    align-self: flex-start;
+    color: var(--clr);
+    font-weight: 600;
+  }
+  
+  .form .submit {
+    padding: 1rem 0.75rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 3rem;
+    background-color: var(--bg-dark);
+    color: var(--bg-light);
+    border: none;
+    cursor: pointer;
+    transition: all 300ms;
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+  
+  .form .submit:hover {
+    background-color: var(--clr);
+    color: var(--bg-dark);
+  }
+  .form .verifi {
+    padding: 1rem 0.75rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 3rem;
+    background-color: var(--bg-dark);
+    color: var(--bg-light);
+    border: none;
+    cursor: pointer;
+    transition: all 300ms;
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  
+  .form .verifi:hover {
+    background-color: var(--clr);
+    color: var(--bg-dark);
+  }
+  
+  
+  .span {
+    text-decoration: none;
+    color: var(--bg-dark);
+  }
+  
+  .span a {
+    color: var(--clr);
+  }
+  
+  /*  */
+  
+  /* resorse */
+  .resource .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(20rem, 1fr));
+    gap:1.5rem
+    
+  }
+  .resource .box-container .box{
+    padding: 2rem 1rem;
+    background: #fff;
+    outline: var(--outline);
+    outline-offset: -1rem;
+    text-align: center;
+    box-shadow:var(--box-shadow) ;
+  
+  
+  }
+  
+  .resource .box-container .box img{ 
+    margin: 1rem 0;
+    height: 15rem;
+    border-radius: 20px;
+  
+  
+  } 
+  .resource .box-container .box:hover{
+    outline:var(--outline-hover) ;
+    outline-offset: 0rem;
+    
+  } 
+  .resource .box-container .box h3{
+    font-size: 1rem;
+    line-height: 1.8rem;
+    color: black;
+  
+  } 
+  .resource .box-container .box p{
+    font-size: 1rem;
+    line-height: 1.8rem;
+    color:gray;
+    padding: 1rem 0;
+  
+  } 
+  
+  
+  /*  */
+  /* .container{
+    max-width: 1300px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+  
+  } */
+  /* .row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .col-2 {
+    flex-basis: 50%;
+    min-width: 30px;
+  }
+  .col-2 img{
+    width: 60%;
+    height: 30%px;
+    padding: 30px 0;
+  
+  }
+  .col img{
+    width: 30%;
+    height: 30%;
+    right: 50%;
+    border-radius: 55px;
+  }
+  
+  .col-2 h3{
+    color: darkmagenta;
+    font-size: 5rem;
+    text-align: center;
+    font-family: 'Playball', cursive;
+   
+    
+  }
+  .col-2 p{
+   
+    color:black;
+    font-family:'Merienda One', cursive;
+    font-size: 4rem;
+  }
+  .button{
+    display: inline-block;
+    background: brown;
+    color: #fff;
+    padding: 8px 30px;
+    margin: 30px 0;
+    border-radius: 30px;
+    transition:   0.5s;
+    
+  }
+  .button:hover{
+    background: blue;
+  }
+   */
+  
+  /*  */
+  .error{
+    color: red;
+    font-size: 12px;
+  }
+  
+  /* 
+   */
+   .eye{
+    margin-top: -8px;
+   } 
+  .fa-eye{
+    position: relative;
+    top: -40px;
+    left: 45%;
+  
+  }
+  .fa-eye-slash{
+    position: relative;
+    top: -40px;
+    left: 45%;
+  }
+  #hide1{
+    display: none;
+  }
+  #hide3{
+    display: none;
+  }
+
+
+
+  /*  */
+  /*-----------------------------------*\
+  #style.css
+\*-----------------------------------*/
+
+/**
+ *
+ */
+  
+  navbar-new ul li {
+    margin: 0 1rem;
+  } 
+  
+  .navbar-new ul li a {
+    color:burlywood;
+    text-decoration: none;
+    position: relative;
+  font-size: 3rem;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 40px;
+  font-family: 'Playball', cursive;
+  align-items: center;
+  
+  }
+  .navbar-new ul li a::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background:lightyellow;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+    
+  
+  }
+  .navbar-new ul li a:hover:after{
+    transform: scaleX(1);
+    transform-origin: left;
+  
+  }
+   
+/* 
+ /* */ 
+ /*  */
+ /*  */
+ /*  */
+/*  */
+/* new style */
+/* 
+  /*-----------------------------------*\
+  #main.css
+\*-----------------------------------*/
+
+/**
+ * 
+ */
+
+
+
+
+
+/*-----------------------------------*\
+  #CUSTOM PROPERTY
+\*-----------------------------------*/
+
+:root {
+
+/**
+ * colors
+ */
+
+--cultured: hsla(0, 0%, 97%, 1);
+--french-bistre: hsla(31, 17%, 44%, 1);
+--jet: hsla(0, 0%, 20%, 1);
+--bistre: hsla(35, 100%, 9%, 1);
+--bistre_a75: hsla(35, 100%, 9%, 0.75);
+--camel: hsla(30, 30%, 58%, 1);
+--umber: hsla(31, 17%, 36%, 1);
+--golden-brown_a60: hsla(35, 70%, 38%, 0.6);
+--granite-gray: hsla(0, 0%, 38%, 1);   
+--white: hsla(0, 0%, 100%, 1);
+--black: hsla(0, 0%, 0%, 1);
+
+/**
+ * typography
+ */
+
+--ff-rosario: 'Rosario', sans-serif;
+--ff-poppins: 'Poppins', sans-serif;
+
+--fs-1: 5rem;
+--fs-2: 4.2rem;
+--fs-3: 3rem;
+--fs-4: 2.6rem;
+--fs-5: 1.8rem;
+
+--fw-600: 600;
+--fw-700: 700;
+
+/**
+ * spacing
+ */
+
+--section-padding: 12rem;
+
+/**
+ * box shadow
+ */
+
+--shadow-1: 0px 0px 30px 0px hsla(0, 0%, 0%, 0.2);
+
+/**
+ * border radius
+ */
+
+--radius-circle: 50%;
+--radius-20: 20px;
+--radius-16: 16px;
+--radius-6: 6px;
+--radius-4: 4px;
+--btn-radius: 32px 6px;
+
+/**
+ * transition
+ */
+
+--transition-1: 0.25s ease;
+--transition-2: 0.5s ease;
+--cubic-in: cubic-bezier(0.51, 0.03, 0.64, 0.28);
+--cubic-out: cubic-bezier(0.05, 0.83, 0.52, 0.97);
+
+}
+
+
+
+
+
+/*-----------------------------------*\
+#RESET
+\*-----------------------------------*/
+
+*,
+*::before,
+*::after {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+li { list-style: none; }
+
+a,
+img,
+span,
+button,
+ion-icon { display: block; }
+
+a {
+color: inherit;
+text-decoration: none;
+}
+
+img { height: auto; }
+
+button {
+background: none;
+border: none;
+font: inherit;
+cursor: pointer;
+}
+
+ion-icon { pointer-events: none; }
+
+html {
+font-family: var(--ff-poppins);
+font-size: 10px;
+scroll-behavior: smooth;
+}
+
+body {
+background-color: var(--white);
+color: var(--granite-gray);
+font-size: 1.6rem;
+line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 10px; }
+
+::-webkit-scrollbar-track { background-color: hsl(0, 0%, 98%); }
+
+::-webkit-scrollbar-thumb { background-color: hsl(0, 0%, 80%); }
+
+::-webkit-scrollbar-thumb:hover { background-color: hsl(0, 0%, 70%); }
+
+
+
+
+
+/*-----------------------------------*\
+#REUSED STYLE
+\*-----------------------------------*/
+
+.container { padding-inline: 10px; }
+
+.logo {
+color: var(--bistre);
+font-size: var(--fs-3);
+font-family: var(--ff-rosario);
+}
+
+/* .section { padding-block: var(--section-padding); } */
+
+.h1 { font-size: var(--fs-1); }
+
+.h1,
+.h2,
+.h3,
+.h4 {
+color: var(--bistre);
+font-family: var(--ff-rosario);
+font-weight: var(--fw-600);
+line-height: 1;
+}
+
+
+.h1 .span { color: var(--french-bistre); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; }
+
+.h2 { font-size: var(--fs-2); }
+
+.h3 { font-size: var(--fs-3); }
+
+.h4 { font-size: var(--fs-4); }
+
+.btn {
+background-color: var(--french-bistre);
+color: var(--white);
+display: flex;
+align-items: center;
+max-width: max-content;
+gap: 12px;
+min-height: 58px;
+padding-inline: 36px;
+border-radius: var(--btn-radius);
+transition: var(--transition-1);
+}
+
+.btn:is(:hover, :focus-visible) { background-color: var(--umber); }
+
+.img-holder {
+aspect-ratio: var(--width) / var(--height);
+background-color: var(--granite-gray);
+overflow: hidden;
+}
+
+.img-cover {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: var(--transition-2);
+}
+
+.text-center { text-align: center; }
+
+.grid-list {
+display: grid;
+gap: 60px;
+}
+
+.has-after {
+position: relative;
+z-index: 1;
+}
+
+.has-after::after {
+content: "";
+position: absolute;
+}
+
+.has-bg-image {
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+}
+
+
+
+
+
+/*-----------------------------------*\
+#HEADER
+\*-----------------------------------*/
+/* 
+.header {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+box-shadow: var(--shadow-1);
+padding-block: 16px;
+background-color: var(--white);
+z-index: 4;
+}
+
+.header.active {
+position: fixed;
+animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+0% { transform: translateY(-100%); }
+100% { transform: translateY(0); }
+}
+
+.header .container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.nav-open-btn {
+font-size: 3.5rem;
+color: var(--bistre);
+}
+
+.nav-open-btn ion-icon { --ionicon-stroke-width: 26px; }
+
+.navbar {
+position: absolute;
+top: 0;
+left: -350px;
+max-width: 350px;
+width: 100%;
+background-color: var(--cultured);
+height: 100vh;
+padding: 16px;
+z-index: 2;
+visibility: hidden;
+transition: 0.25s var(--cubic-in);
+}
+
+.navbar.active {
+visibility: visible;
+transform: translateX(350px);
+transition: 0.5s var(--cubic-out);
+}
+
+.nav-close-btn {
+margin-inline-start: auto;
+font-size: 2.4rem;
+border: 1px solid var(--bistre);
+color: var(--bistre);
+padding: 8px;
+border-radius: var(--radius-4);
+margin-block-end: 24px;
+}
+
+.navbar-link {
+padding-block: 10px;
+color: var(--black);
+transition: var(--transition-1);
+}
+
+.navbar-link:is(:hover, :focus-visible) { color: var(--french-bistre); }
+
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100vh;
+background-color: var(--black);
+z-index: 1;
+visibility: hidden;
+opacity: 0;
+transition: var(--transition-1);
+}
+
+.overlay.active {
+visibility: visible;
+opacity: 0.4;
+}
+
+ */
+
+
+
+/*-----------------------------------*\
+#HERO
+\*-----------------------------------*/
+
+.hero{
+ 
+}
+
+.hero .container {
+display: grid;
+gap: 10px;
+margin-top: -150px;
+
+
+
+}
+@media(max-width:768px){
+  .hero .container {
+display: grid;
+gap: 10px;
+margin-top: 0px;
+}
+}
+
+.hero-content { text-align: center;  }
+
+/* .hero .section-text { margin-block: 20px 36px; } */
+
+.hero .btn {
+margin-inline: auto;
+margin-block-end: 12px;
+}
+
+.hero .wrapper {
+position: relative;
+display: grid;
+row-gap: 10px;
+}
+
+.hero .img-holder {
+border-radius: var(--radius-20);
+max-width: max-content;
+margin-inline: auto;
+}
+
+.hero .hero-banner-1 {
+border-top-left-radius: 200px;
+border-top-right-radius: 200px;
+}
+
+.hero .hero-banner-2 {
+border-top-left-radius: 150px;
+border-bottom-right-radius: 50px;
+}
+
+.hero .shape {
+position: absolute;
+bottom: -10px;
+right: 0;
+width: 10px;
+}
+
+
+
+/*-----------------------------------*\
+#ABOUT
+\*-----------------------------------*/
+
+.about {
+background-color: var(--bistre);
+color: var(--white);
+}
+
+.about .container {
+display: grid;
+gap: 30px;
+}
+
+.about-banner {
+border-radius: var(--radius-16);
+max-width: max-content;
+}
+
+.about-banner-1 { border-bottom-right-radius: 120px; }
+
+.about .section-title { color: var(--white); }
+
+.about .wrapper .section-title { margin-block-start: 20px; }
+
+.about-banner-2 {
+border-top-right-radius: 100px;
+border-bottom-left-radius: 100px;
+}
+
+.about-content .section-title { margin-block-end: 20px; }
+
+.about .btn { margin-block: 30px; }
+
+.about-banner-3 { border-bottom-right-radius: 100px; }
+
+
+
+
+
+/*-----------------------------------*\
+#COLLECTION
+\*-----------------------------------*/
+
+.collection .section-text { margin-block: 20px 60px; }
+
+.collection-card .card-banner {
+border-radius: 250px 250px 20px 20px;
+max-width: max-content;
+margin-inline: auto;
+}
+
+.collection-card .card-title { margin-block: 20px; }
+
+.collection-card .btn {
+margin-inline: auto;
+margin-block-start: 24px;
+}
+
+
+/*-----------------------------------*\
+#Reviews
+\*-----------------------------------*/
+
+.collection-reviews .section-text { margin-block: 20px 60px; }
+
+.collection-card-reviews .card-banner-reviews {
+/* border-radius: 50px 50px 20px 20px; */
+border-top-left-radius: 100px;
+border-bottom-right-radius: 100px;
+max-width: max-content;
+margin-inline: auto;
+}
+
+.collection-card-reviews .card-title { margin-block: 20px; }
+
+.collection-card-reviews .btn {
+margin-inline: auto;
+margin-block-start: 24px;
+}
+.stars{
+  color:orange;
+  padding: 10px;
+}
+
+
+
+/*-----------------------------------*\
+#FEATURES
+\*-----------------------------------*/
+
+.feature {
+background-color: var(--bistre);
+color: var(--white);
+}
+
+.feature-banner { min-height: 520px; }
+
+.feature-banner::after {
+inset: 0;
+background-color: var(--bistre);
+opacity: 0.4;
+}
+
+.feature .play-btn {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: var(--bistre_a75);
+padding: 32px;
+border-radius: var(--radius-circle);
+animation: pulse 2.5s ease-out infinite;
+z-index: 1;
+}
+
+@keyframes pulse {
+0%,
+75.1% { box-shadow: 0 0 0 0 var(--golden-brown_a60); }
+
+75% { box-shadow: 0 0 0 20px transparent; }
+}
+
+.feature :is(.h2, .h4) { color: var(--white); }
+
+.feature .section-text { margin-block: 30px; }
+
+.feature-list-card {
+display: flex;
+align-items: center;
+gap: 20px;
+margin-block-end: 30px;
+}
+
+.feature-list-card .card-icon {
+background-color: var(--french-bistre);
+padding: 15px;
+padding-block-start: 20px;
+flex-shrink: 0;
+border-radius: var(--radius-6);
+border-top-left-radius: 40px;
+}
+
+.feature-list-card .card-title { margin-block-end: 12px; }
+
+
+
+
+
+/*-----------------------------------*\
+#TESTIMONIALS
+\*-----------------------------------*/
+
+.testi { padding-block-start: 160px; }
+
+.testi-card {
+position: relative;
+padding-inline: 36px;
+}
+
+.testi :is(.card-text, .client-name) {
+color: var(--bistre);
+font-family: var(--ff-rosario);
+line-height: 1.3;
+}
+
+.testi-card .card-text {
+font-size: var(--fs-3);
+margin-block-end: 40px;
+}
+
+.testi-card .client-name {
+font-size: var(--fs-5);
+font-weight: var(--fw-700);
+}
+
+.testi-card .icon {
+position: absolute;
+top: -80px;
+left: 0;
+}
+
+
+
+
+
+/*-----------------------------------*\
+#GALLERY
+\*-----------------------------------*/
+
+.gallery-card {
+height: 430px;
+padding: 20px;
+padding-block-start: 50px;
+}
+
+.gallery-card::after {
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: var(--bistre);
+opacity: 0.5;
+z-index: -1;
+transition: var(--transition-1);
+}
+
+.gallery-card:is(:hover, :focus-within)::after { opacity: 0.7; }
+
+.gallery-card .card-content {
+display: grid;
+align-content: space-between;
+height: 100%;
+}
+
+.gallery-card .card-title { color: var(--white); }
+
+.gallery-card .btn-link {
+color: var(--white);
+display: flex;
+align-items: center;
+gap: 8px;
+transition: var(--transition-1);
+}
+
+.btn-link:is(:hover, :focus-visible) { color: var(--french-bistre); }
+
+
+
+
+
+/*-----------------------------------*\
+#BLOG
+\*-----------------------------------*/
+
+.blog .section-text { margin-block: 20px 36px; }
+
+.blog .grid-list { gap: 30px; }
+
+.blog-card .card-banner { border-radius: 50px 50px 0 0; }
+
+.blog-card .img-cover { will-change: transform; }
+
+.blog-card:is(:hover, :focus-within) .img-cover {
+transform: scale(1.05) rotate(2deg);
+opacity: 0.8;
+}
+
+.blog-card .card-content { padding: 10px; }
+
+.blog-card .card-title { margin-block: 8px 20px; }
+
+.blog-card :is(.card-meta, .card-meta-wrapper) {
+display: flex;
+align-items: center;
+}
+
+.blog-card .card-meta {
+flex-wrap: wrap;
+column-gap: 40px;
+}
+
+.blog-card .card-meta-wrapper { gap: 8px; }
+
+.blog-card .card-meta-wrapper ion-icon { color: var(--french-bistre); }
+
+.blog .btn {
+margin-block-start: 80px;
+margin-inline: auto;
+}
+
+
+
+
+
+/*-----------------------------------*\
+#FOOTER
+\*-----------------------------------*/
+
+.footer {
+background-color: var(--bistre);
+color: var(--white);
+padding: 10px;
+}
+
+.footer-top {
+display: grid;
+gap: 30px;
+padding-block-end: 50px;
+border-block-end: 1px solid var(--french-bistre);
+}
+
+.footer .logo {
+color: var(--french-bistre);
+font-size: 3.2rem;
+}
+
+.footer-brand .footer-text { margin-block: 20px; }
+.footer-brand .logo {
+    font-size: 3.5rem;
+    font-family: 'Playball', cursive;
+    color:salmon;
+  }
+  
+  
+  .footer-brand .logo i {
+    color: white;
+  }
+.social-list {
+display: flex;
+gap: 20px;
+}
+
+.social-link {
+color: var(--french-bistre);
+font-size: 1.8rem;
+}
+
+.footer-list-title {
+color: var(--french-bistre);
+font-family: var(--ff-rosario);
+font-size: 1.8rem;
+font-weight: var(--fw-700);
+margin-block-end: 20px;
+}
+
+.footer-link { padding-block: 7px; }
+
+.footer-list .footer-text { margin-block-end: 24px; }
+
+.footer-bottom {
+padding-block: 40px;
+text-align: center;
+}
+
+.copyright {
+color: var(--french-bistre);
+font-family: var(--ff-rosario);
+font-size: var(--fs-5);
+}
+
+
+
+
+
+/*-----------------------------------*\
+#MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+* responsive for large than 575px screen
+*/
+
+@media (min-width: 575px) {
+
+/**
+ * REUSED STYLE
+ */
+
+.container {
+  max-width: 540px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+}
+
+
+
+
+
+/**
+* responsive for large than 768px screen
+*/
+
+@media (min-width: 768px) {
+
+/**
+ * CUSTOM PROPERTY
+ */
+
+:root {
+
+  /**
+   * typography
+   */
+
+  --fs-1: 6.5rem;
+
+}
+
+
+
+/**
+ * REUSED STYLE
+ */
+
+.container { max-width: 720px; }
+
+.grid-list {
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+}
+
+
+
+/**
+ * HERO
+ */
+
+.hero .wrapper {
+  grid-template-columns: 0.8fr 1fr;
+  align-items: flex-end;
+  column-gap: 20px;
+}
+
+
+
+/**
+ * GALLERY
+ */
+
+.gallery-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+
+/**
+ * FOOTER
+ */
+
+.footer-top { grid-template-columns: 1fr 1fr; }
+
+}
+
+
+
+
+
+/**
+* responsive for large than 992px screen
+*/
+
+@media (min-width: 992px) {
+
+/**
+ * CUSTOM PROPERTY
+ */
+
+:root {
+
+  /**
+   * typography
+   */
+
+  --fs-2: 4.8rem;
+  --fs-3: 3.5rem;
+
+}
+
+
+
+/**
+ * REUSED STYLE
+ */
+
+.container { max-width: 950px; }
+
+
+
+/**
+ * HEADER
+ */
+
+.nav-open-btn,
+.nav-close-btn,
+.overlay { display: none; }
+
+.header { padding-block: 20px; }
+
+.navbar,
+.navbar.active {
+  all: unset;
+  display: block;
+}
+
+.navbar-list {
+  display: flex;
+  gap: 40px;
+}
+
+.navbar-link { color: var(--bistre); }
+
+
+
+/**
+ * HERO
+ */
+
+.hero .container { grid-template-columns: 1fr 1fr; }
+
+.hero .wrapper {
+  grid-template-columns: 0.6fr 1fr;
+  align-items: flex-end;
+  column-gap: 25px;
+}
+
+.hero-content { text-align: left; }
+
+.h1 .span { display: inline; }
+
+.hero .btn { margin-inline: 0; }
+
+
+
+/**
+ * ABOUT
+ */
+
+.about .container {
+  grid-template-columns: repeat(3, 1fr);
+  align-items: flex-start;
+  gap: 50px;
+}
+
+.about .wrapper {
+  align-self: flex-end;
+  margin-inline-end: -140px;
+}
+
+.about-banner-1 {
+  border-bottom-right-radius: var(--radius-16);
+  border-top-left-radius: 120px;
+}
+
+.about-banner-3 {
+  margin-block-start: 50px;
+  margin-inline-start: -180px;
+}
+
+
+
+/**
+ * COLLECTION
+ */
+
+.collection .grid-list { grid-template-columns: repeat(3, 1fr); }
+
+/**
+ * reviews
+ */
+
+ .collection-reviews .grid-list { grid-template-columns: repeat(3, 1fr); }
+
+
+/**
+ * FEATURES
+ */
+
+.feature {
+  display: flex;
+  align-items: stretch;
+}
+
+.feature-banner,
+.feature-content { width: 50%; }
+
+.feature-banner { min-height: 100%; }
+
+.feature-content { padding-inline: 80px; }
+
+
+
+/**
+ * GALLERY
+ */
+
+.gallery-list { grid-template-columns: repeat(4, 1fr); }
+
+.gallery-card {
+  height: 560px;
+  padding: 60px 40px;
+}
+
+}
+
+
+
+
+
+/**
+* responsive for large than 1200px screen
+*/
+
+@media (min-width: 1200px) {
+
+/**
+ * REUSED STYLE
+ */
+
+.container { max-width: 1250px; }
+
+
+
+/**
+ * HERO
+ */
+
+.hero { padding-block-start: 200px; }
+
+.hero .hero-banner-1 {
+  margin-inline-start: -60px;
+  margin-block-end: 60px;
+}
+
+
+
+/**
+ * ABOUT
+ */
+
+.about .container { gap: 70px; }
+
+.about .wrapper .section-title { margin-inline-end: -80px; }
+
+.about-banner-3 { margin-block-start: 60px; }
+
+
+
+/**
+ * TESTIMONIALS
+ */
+
+.testi .container { max-width: 680px; }
+
+
+
+/**
+ * BLOG
+ */
+
+.blog .grid-list { gap: 60px; }
+
+
+
+/**
+ * FOOTER
+ */
+
+.footer-top { grid-template-columns: 1fr 0.5fr 0.5fr 0.6fr; }
+
+.footer-brand { padding-inline-end: 60px; }
+
+}
+ /* */ 
+ /*  */
+ h2 {
+    color:salmon;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .program-card {
+   
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+   
+  }
+  .program-card h3{
+        color:#ff7800;
+        font-weight:bold;
+        font-size: 2rem;
+  }
+  .program-card p{
+          color:white;
+  }
+  
+  .program-card button {
+    background:brown;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+  }
+  
+  .program-card button:hover {
+    background:salmon;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .save  {
+    max-width: 400px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .save  label {
+    margin-top: 10px;
+  }
+  
+  .save  input{
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid black !important;
+  }
+  .save  button {
+    background:brown;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+    margin-top: 5px;
+  }
+  .save  button:hover{
+    background:salmon;
+  }
+  
+  .progress-dashboard {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    
+  }
+  
+  .progress-item {
+    background: lightpink;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 150px;
+    margin: 10px;
+  }
+  /* videos */
+  /* General Styles */
+
+
+h1, h2 {
+  color:salmon;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    padding: 10px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+/* Video Gallery */
+#video-gallery {
+  padding: 20px;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.video-item {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Interactive Guide */
+#interactive-guide {
+  padding: 20px;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: brown;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: lightcoral;
+}
+
+.hidden {
+  display: none;
+}
+/* 
+ */
+ /*  */
+ /*  */
+ 
+label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: brown;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: salmon;
+}
+
+/* Appointments List */
+#appointments-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+#appointments-list li {
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+/*  */
+/*  */
+h1, h2 {
+  color:salmon;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    padding: 10px;
+}
+
+
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.video-item {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+}
+
+#reminders-section {
+    margin-top: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, button {
+    padding: 12px;
+    font-size: 1.8rem;
+}
+
+#reminders-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#reminders-list li {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit{
+  margin:10px;
+}
+/* 
+/*  */
+/*  */
+/* premium */
+
+/* Premium Content Section */
+.premium-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.premium-item {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+}
+
+/* Achievements Section */
+#achievements-section {
+    margin-top: 40px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#achievements-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.achievement-badge {
+    display: inline-block;
+    background: #ffe5b4;
+    border: 2px solid brown;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: brown;
+    text-align: center;
+}
+/*  */
+/*  */
+/*  */
+/* questions */
+/* questions */
+/* Main container for content */
+.container-questions {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: lightcyan;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section for displaying the list of questions */
+#questions-list {
+  margin-top: 1rem;
+}
+
+/* Styling for individual questions */
+.question {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question-header {
+  font-weight: bold;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-body {
+  margin-top: 1rem;
+  display: none;
+  font-size: 2rem;
+  padding-left: 1rem;
+}
+
+/* Styling for the "+" button */
+.toggle-button {
+  background-color:brown;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: fit-content;
+  text-align: center;
+}
+
+.toggle-button:hover {
+  background-color: salmon;
+}
+
+/* Answer styling */
+.answer {
+  background-color: #e9ecef;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+/* 
+   */
+   /*  */
+   .help {
+    background-color:#382916;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+.container-help {
+    width: 90%;
+    max-width: 800px;
+    margin: 3rem auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Section */
+#contact {
+    margin-bottom: 2rem;
+}
+#contact p{
+    padding: 5px;
+}
+
+#contact a {
+    color:#382916;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
+
+/* Feedback Form */
+#feedback {
+    margin-bottom: 2rem;
+}
+
+form input, form textarea, form button {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+form button {
+    background-color:#382916;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color:salmon;
+}
+
+/* */ 
+ /*  */
+ /*  */
+/*  */
+ </style>
+  </head>
+  <body class="light-mode">
+    <!-- General User Header -->
+    <header id="general-header" class="general-header">
+      
+      <nav class="navbar-new">
+         <a href="#"  onclick="showPage('home')" class="logo">Zenify<i class="fa-solid fa-dove"></i></a> 
+        <ul>
+          <li><a href="#" id="home-link">Home</a></li>
+          <li><a href="#" id="login-link">Login</a></li>
+          <!-- <li><a href="#" id="register-link">Register</a></li> -->
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Logged-in User Header -->
+    <header id="user-header" class="user-header">
+      <nav class="navbar-new">
+        <a href="#"  onclick="showPage('home')" class="logo">Zenify<i class="fa-solid fa-dove"></i></a> 
+        <ul class="user-nav-links">
+          <li><a href="#" id="home-user-link">Home</a></li>
+          <li><a href="#" id="sample-1-link">stress Management </a></li>
+          <li><a href="#" id="sample-2-link">Support</a></li>
+          
+          
+        </ul>
+        <div class="header-icons">
+          <div class="notification-icon" id="notificationIcon">
+            <span>&#128276;</span>
+            <!-- <p id="not-count-num"></p> -->
+          </div>
+          <div class="profile-icon" id="profileIcon">
+            <span>&#128100;</span>
+          </div>
+          <div class="nav-icon" id="navToggleIcon">
+            <span>&#9776;</span>
+          </div>
+        </div>
+        
+      </nav>
+      
+      
+
+      <div id="modeToggle" class="modeToggle-icon">
+        <img
+          src="https://res.cloudinary.com/dzrc9ejln/image/upload/v1729097552/half-moon_1_xgpusv.png"
+          class="toggle-moon-icon"
+          alt=""
+        />
+        <!-- <ion-icon name="sunny-outline" class="toggle-sun-icon"></ion-icon>
+        <ion-icon name="moon-outline" class="toggle-moon-icon"></ion-icon> -->
+        <img
+          src="https://res.cloudinary.com/dzrc9ejln/image/upload/v1729096535/sun_q4ad24.png"
+          class="toggle-sun-icon"
+          alt=""
+        />
+      </div>
+    </header>
+
+    <div class="notification-container" id="notificationContainer">
+      <button class="close-btn2" id="closeNotificationBtn">&times;</button>
+      <h2>Notifications</h2>
+      <div class="cafe-notification-content" id="notify-alert-cont"></div>
+    </div>
+
+    <div class="profile-container" id="profileContainer">
+      <button class="close-btn2" id="closeProfileBtn">&times;</button>
+      <div class="pf-cont">
+        <h2>User Profile</h2>
+        <div class="profile-content">
+          <p><strong>Name:</strong> <span id="user-name-text"></span></p>
+          <p><strong>Email:</strong> <span id="user-name-email"></span></p>
+          <button class="logout-btn" id="update-link">Update</button>
+          <button class="logout-btn" id="logout-link">Logout</button>
+         
+          
+         
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content Sections -->
+    <main>
+      <!-- Home Page -->
+      <section id="home-page" class="page" >
+        <!-- <h1>Home Page</h1>
+        <p>Welcome to the home page.</p> -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+   <!--- #HERO -->
+
+
+  
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" aria-label="home">
+        <div class="container">
+
+          <div class="hero-content">
+
+            <h1 class="h1 hero-title">
+              "Give your stress wings, 
+              <span class="span">and let it fly away."</span>
+            </h1>
+
+            <p class="section-text">
+              "You can’t always control what goes on outside, but you can always control what goes on inside.Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment." 
+            </p>
+        
+           <figure class="about-banner  about-banner-3 img-holder" style="--width: 800; --height: 400; border-top-right-radius: 100px;
+border-bottom-left-radius:100px;  ">
+            <img src="./assets/images/hero3.jpg" width="800" height="400"  loading="lazy" 
+            alt="stress" class="img-cover">
+        </figure>
+          </div>
+
+          <div class="wrapper">
+            <div class="hero-banner-1 img-holder" style="--width: 400; --height: 540;">
+              <img src="./assets/images/hero1.jpg" width="400" height="540"
+                alt="stress" class="img-cover">
+            </div>
+
+            <div class="hero-banner-2 img-holder" style="--width: 500; --height: 800;">
+              <img src="./assets/images/hero2.jpg" width="500" height="800" alt="stress"
+                class="img-cover">
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <br/>
+      <br/>
+
+
+
+
+      <!-- 
+        - #ABOUT
+      -->
+
+      <section class="section about" aria-label="about">
+        <div class="container">
+
+          <div class="wrapper">
+            <figure class="about-banner about-banner-1 img-holder" style="--width: 600; --height: 480;">
+              <img src="./assets/images/about-1.jpg" width="600" height="480" loading="lazy" alt="craftman in workshop"
+                class="img-cover">
+            </figure>
+
+            <h2 class="h2 section-title">Since 1992</h2>
+          </div>
+
+          <figure class="about-banner about-banner-2 img-holder" style="--width: 500; --height: 700;">
+            <img src="./assets/images/about-2.jpg" width="500" height="700" loading="lazy"
+              alt="interior view of a leather shop selling belts brac" class="img-cover">
+          </figure>
+
+          <div class="about-content">
+
+            <h3 class="h2 section-title">Take rest; a field that has rested gives a bountiful crop</h3>
+
+            <p class="section-text">
+              Stress management refers to the techniques, strategies, and practices used to control and reduce stress levels, improving mental and physical well-being. Effective stress management helps individuals cope with challenges, maintain productivity, and promote overall happiness
+            </p>
+
+
+            <figure class="about-banner about-banner-3 img-holder" style="--width: 850; --height: 420;">
+              <img src="./assets/images/about-3.jpg" width="850" height="420" loading="lazy"
+                alt="concentrated artisans in workshop" class="img-cover">
+            </figure>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <br/>
+      <br/>
+
+
+      <!-- 
+        - #COLLECTION
+      -->
+
+      <section class="section collection text-center" aria-labelledby="collection-label">
+        <div class="container">
+
+          <h2 class="h2 section-title" id="collection-label">
+            Techniques for Stress Management
+          </h2>
+
+          <p class="section-text">
+           
+"Adopting the right attitude can convert a negative stress into a positive one."
+          </p>
+
+          <ul class="grid-list">
+
+            <li>
+              
+              <div class="collection-card">
+
+                <figure class="card-banner img-holder" style="--width: 500; --height: 550;">
+                  <img src="./assets/images/collection-2.jpg" width="500" height="550" loading="lazy"
+                    alt="Leather Craft" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h3 card-title">Emotional Techniques</h3>
+
+                  <p class="card-text">
+                    Keep a gratitude journal to shift focus to positive aspects of life.
+                  </p>
+
+                 
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="collection-card">
+
+                <figure class="card-banner img-holder" style="--width: 500; --height: 550;">
+                  <img src="./assets/images/collection-1.jpg" width="500" height="550" loading="lazy"
+                    alt="Pottery & Ceramics" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h3 card-title">Physical Techniques</h3>
+
+                  <p class="card-text">
+                    Try diaphragmatic breathing to calm the nervous system
+                  </p>
+
+                
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="collection-card">
+
+                <figure class="card-banner img-holder" style="--width: 500; --height: 550;">
+                  <img src="./assets/images/collection-3.jpg" width="500" height="550" loading="lazy"
+                    alt="Home Decoration" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h3 card-title">Time Management</h3>
+
+                  <p class="card-text">
+                    Avoid overcommitment and learn to say no when necessary.
+                  </p>
+
+                  
+
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+      <br/>
+      <br/>
+
+
+
+      <!-- 
+        - #FEATURES
+      -->
+
+      <section class="feature" aria-label="features">
+
+        <div class="feature-banner has-bg-image has-after"
+          style="background-image: url('./assets/images/feature-banner.jpg')">
+          <button class="play-btn" aria-label="play video: man making handmade belt">
+            <img src="./assets/images/play.svg" width="60" height="60" loading="lazy" alt="play icon">
+          </button>
+        </div>
+
+        <div class="section feature-content">
+          <div class="container">
+
+            <h2 class="h2 section-title">
+              Passionate About Stress Management
+            </h2>
+
+            <p class="section-text">
+             
+"Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor."
+            </p>
+
+            <ul class="feature-list">
+
+              <li>
+                <div class="feature-list-card">
+
+                  <div class="card-icon">
+                    <img src="./assets/images/feature-icon-1.svg" width="45" height="45" loading="lazy"
+                      alt="review icon">
+                  </div>
+
+                  <div>
+                    <h3 class="h4 card-title">100% Guarantee</h3>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="feature-list-card">
+
+                  <div class="card-icon">
+                    <img src="./assets/images/feature-icon-2.svg" width="45" height="45" loading="lazy"
+                      alt="badge icon">
+                  </div>
+
+                  <div>
+                    <h3 class="h4 card-title">Professional Staffs</h3>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="feature-list-card">
+
+                  <div class="card-icon">
+                    <img src="./assets/images/feature-icon-3.svg" width="45" height="45" loading="lazy"
+                      alt="money bag icon">
+                  </div>
+
+                  <div>
+                    <h3 class="h4 card-title">Affordable Price</h3>
+                  </div>
+
+                </div>
+              </li>
+
+            </ul>
+
+            <p>
+              "Rule number one is, don’t sweat the small stuff. Rule number two is, it’s all small stuff."
+            </p>
+
+          </div>
+        </div>
+
+      </section>
+
+      <br/>
+      <br/>
+
+
+
+     
+
+    <!-- 
+        - #Reviews
+      -->
+
+      <section class="section collection text-center" aria-labelledby="collection-label">
+        <div class="container">
+
+          <h2 class="h2 section-title" id="collection-label">
+            REVIEWS
+          </h2>
+
+          <p class="section-text">
+           
+            "Calm mind brings inner strength and self-confidence, so that's very important for good health."
+          </p>
+
+          <ul class="grid-list">
+
+            <li>
+              
+              <div class="collection-card-reviews">
+
+                <figure class="card-banner-reviews img-holder" style="--width: 100; --height: 100;">
+                  <img src="./assets/images/revire-1.jpg" width="100" height="100" loading="lazy"
+                    alt="Leather Craft" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <!-- <h3 class="h3 card-title">Emotional Techniques</h3>
+
+                  <p class="card-text">
+                    Keep a gratitude journal to shift focus to positive aspects of life.
+                  </p> -->
+                  <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <p>
+                    I love this app, Zenify app provide a convenient, affordable, and accessible way to address daily stressors and build healthier habits.However, their effectiveness often hinges on user engagement, personalization, and design quality. 
+                    </p>
+                 
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="collection-card-reviews">
+
+                <figure class="card-banner-reviews img-holder" style="--width: 100; --height: 100;">
+                  <img src="./assets/images/review-2.jpg" width="100" height="100" loading="lazy"
+                    alt="Pottery & Ceramics" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <p>
+                    So happy I tried this out! I always get disappointed by to-do apps, but this one is just MAGICAL! With features like guided meditations, breathing exercises, progress tracking, and calming sounds, they cater to a diverse audience.  </p>
+   
+
+                
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="collection-card-reviews">
+
+                <figure class="card-banner-reviews img-holder" style="--width: 100; --height: 100;">
+                  <img src="./assets/images/review-3.jpg" width="100" height="100" loading="lazy"
+                    alt="Home Decoration" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+  
+                  </div>
+                  <p>
+                    For once, an app that actually helps me build habits and be consistent with them! Beautiful interface and really easy to use.  feature overload, and data privacy concerns highlight the need for continuous improvement. </p>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+      
+
+
+
+
+      </section>
+    </article>
+  </main>
+     
+      
+
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+ 
+
+      <!-- Login Page -->
+      <section id="login-page" class="page1">
+        <h1>Login Page</h1>
+        <!-- <form  >
+          <label for="login-username">Username:</label>
+          <input type="text"  name="username" required />
+          <br />
+          <label for="login-password">Password:</label>
+          <input type="password"  name="password" required />
+          <br />
+          <button type="submit">Login</button>
+        </form> -->
+        <!-- login -->
+        <div class="login">
+          <form class="form" id="login-form">
+            <span class="input-span">
+              <label for="login-username" class="label">Email</label>
+              <input placeholder="Enter your Email" type="email" name="email" id="login-username"
+            /></span>
+            <span class="input-span" id="password">
+              <label for="login-password" class="label">Password</label>
+              <input placeholder="Enter your password" type="password" name="password" id="login-password"
+            /> <span class="eye" onclick="myFunction()">
+              <i  id="hide1" class="fa fa-eye"></i>
+              <i id="hide2" class="fa fa-eye-slash"></i>
+            </span></span>
+            <span class="span">Forgot Password <a href="#" id="forgot-link">set New Password</a></span>
+            <input class="submit" type="submit" value="Log in" />
+            <span class="span"
+              >Don't have an account? <a href="#register-form" id="register-link">Sign up</a></span
+            >
+          </form>
+        </div>
+      </section>
+      <!-- forgotpassword -->
+      <section id="forgot-page" class="page1" style="display: none">
+        <h1>Forgot Password Page</h1>
+        <div class="login">
+          <form class="form" id="forgot-form">
+            <span class="input-span">
+              <label for="forgot-username" class="label">Email</label>
+              <input placeholder="Enter your Email" type="email" name="email" id="forgot-username"
+            /></span> 
+            <span class="input-span" id="forgot-passwordContainer">
+              <label for="forgot-password" class="label">Password</label>
+              <input  placeholder="Enter your password" type="password" name="password" id="forgot-password"
+            /><span  onclick="myFunction2()">
+              <i  id="hide3" class="fa fa-eye"></i>
+              <i id="hide4" class="fa fa-eye-slash"></i>
+              </span>
+          </span>
+           
+           <input class="verifi" id="forgotVerifie" type="button" value="verify"/>
+          <input class="submit" id="forgotsubmit" type="submit" value="submit" />
+          <span class="span">Remenber Password goto <a href="#" id="login2-link">Login</a></span>
+            
+          </form>
+        </div>
+      </section>
+
+      <!-- Register Page -->
+      <section id="register-page" class="page1">
+        <h1>Register Page</h1>
+        <!-- <form id="register-form">
+          <label for="register-username">Username:</label>
+          <input type="text" id="register-username" name="username" required />
+          <br />
+          <label for="register-password">Password:</label>
+          <input
+            type="password"
+            id="register-password"
+            name="password"
+            required
+          />
+          <br />
+          <button type="submit">Register</button>
+        </form> -->
+        <div class="login">
+          <form class="form" id="register-form">
+            <span class="input-span">
+              <label for="register-name" class="label"
+                >Name</label>
+
+              <input placeholder="Enter your Name" type="text" name="name" id="register-name" required/>
+              <span class="error" id="nameError"></span>
+             </span>
+            
+            <span class="input-span">
+              <label for="register-useremail" class="label" 
+                >Email</label>
+              <input placeholder="Enter your Email" type="email" name="email" id="register-useremail" required/>
+              <span class="error" id="emailError"></span>
+          </span>
+            <span class="input-span">
+              <label for="register-password" class="label" >Password </label>
+              <input  placeholder="Enter your password" type="password" name="password" id="register-password"  required/>
+              <span class="error" id="password"></span>
+              <span class="eye" onclick="myFunction3()">
+                <i  id="hide5" class="fa fa-eye"></i>
+                <i id="hide6" class="fa fa-eye-slash"></i>
+                </span>
+            </span>
+          
+            <span class="input-span2">
+              <input type="checkbox" id="register-checkbox" name="checkbox" required />
+              Accept Terms & Conditions
+              <label for="register-checkbox" class="label"></label> 
+            </span>
+              
+            <input class="submit" type="submit" value="sign up" />
+            <span class="span"
+              >Already have an account <a href="#" id="login3-link">Login</a></span
+            >
+            
+          </form>
+        </div>
+      </section>
+
+      <!-- User  Update -->
+      <section id="update-user-page" class="page1" style="display: none">
+        <h1>Update </h1>
+        <!-- <form id="update-form">
+          <label for="update-username">Username:</label>
+          <input type="text" id="update-username" name="username" required />
+          <br />
+
+          
+          <label for="update-password">Password:</label>
+          <input
+            type="password"
+            id="update-password"
+            name="password"
+            required
+          />
+          <br />
+          <button type="submit">update</button>
+        </form> -->
+        <!--  -->
+        <div class="login">
+          <form class="form" id="update-form">
+            <span class="input-span">
+              <label for="update-name" class="label">Name</label>
+              <input placeholder="Enter your Name" type="text" name="name" id="update-name"
+            /></span>
+            <span class="input-span">
+              <label for="update-username" class="label">Email</label>
+              <input type="email" name="email" id="update-username"
+            /></span>
+            <span class="input-span">
+              <label for="update-password" class="label">Password</label>
+              <input placeholder="Enter your password" type="password" name="password" id="update-password"
+            /><span  onclick="myFunction4()">
+              <i  id="hide7" class="fa fa-eye"></i>
+              <i id="hide8" class="fa fa-eye-slash"></i>
+              </span>
+          </span> 
+         
+            <input class="submit" type="submit" value="Update" />
+            
+          </form>
+        </div>
+      </section>
+    
+
+      <!-- Products Page (for logged-in users) -->
+      <section id="sample1-page" class="page" style="display: none">
+        <!-- <h1>Sample 1 page</h1>
+        <p>Details of sample 1</p> -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        
+      <!-- 
+        - #TESTIMONIALS
+      -->
+<!-- 
+       <section class="section testi" aria-label="testimonials">
+        <div class="container">
+
+          <div class="testi-card">
+
+            <p class="card-text">
+              "Keep your face always toward the sunshine—and shadows will fall behind you."
+            </p>
+
+            <p class="client-name">Ester Fransisco</p>
+
+            <p class="client-title">Founder <strong> Zenify<i class="fa-solid fa-dove"></i></strong></p>
+
+            <img src="./assets/images/quote.svg" width="50" height="50" loading="lazy" class="icon" alt="quote">
+
+          </div>
+
+        </div>
+      </section>  -->
+      <section class="section blog"  aria-labelledby="blog-label" >
+      <div class="container">
+
+        <h2 class="h2 section-title text-center" id="blog-label">Techniques</h2>
+
+        <p class="section-text text-center">
+          "You can’t stop the waves, but you can learn to surf."
+        </p>
+
+        <ul class="grid-list">
+
+          <li>
+            <div class="blog-card">
+
+              <figure class="card-banner img-holder" style="--width: 1024; --height: 683;">
+                <img src="assets/images/blog-1.jpg" width="1024" height="683" loading="lazy"
+                  alt="The Detail Process Of Decorating The Clay Vase At Pottery Studio" class="img-cover">
+              </figure>
+
+              <div class="card-content">
+
+                <h3 class="h4">
+                    <h4><strong>Mindfulness and Meditation </strong></h4>
+                    <p>Description: Focus on the present moment to calm the mind and body.
+                      Examples:
+                      Mindful breathing: Focus on inhaling and exhaling.
+                      Guided meditation apps (e.g., Calm, Headspace).
+                      Benefits: Enhances focus, reduces anxiety, and improves emotional resilience.</p>
+                </h3>
+
+                
+
+              </div>
+
+            </div>
+          </li>
+
+          <li>
+            <div class="blog-card">
+
+              <figure class="card-banner img-holder" style="--width: 1024; --height: 683;">
+                <img src="./assets/images/blog-2.jpg" width="1024" height="683" loading="lazy"
+                  alt="Skills And Techniques To Make A Genuine Leather Wallet" class="img-cover">
+              </figure>
+
+              <div class="card-content">
+
+                <h3 class="h4">
+                  <h4><strong>Social Support</strong></h4>
+                  <p>
+                    Description: Seeking connection and support from others.
+                    Examples:
+                    Talking to a trusted friend or family member.
+                    Joining a support group or stress management workshop.
+                    Benefits: Reduces feelings of isolation and provides new perspectives.
+                    </p>
+              </h3>
+
+                
+
+              </div>
+
+            </div>
+          </li>
+
+          <li>
+            <div class="blog-card">
+
+              <figure class="card-banner img-holder" style="--width: 1024; --height: 683;">
+                <img src="./assets/images/blog-3.jpg" width="1024" height="683" loading="lazy"
+                  alt="5 Latest And Trending Handmade Crafts For Adults And Kids" class="img-cover">
+              </figure>
+
+              <div class="card-content">
+
+                <h3 class="h4">
+                  <h4><strong>Time Management</strong></h4>
+                  <p>
+                  Description: Organizing tasks to avoid feeling overwhelmed.
+                  Examples:
+                  Prioritize tasks using the Eisenhower Matrix (urgent vs. important).
+                  Break large tasks into smaller, manageable steps.
+                  Benefits: Increases productivity and reduces feelings of being overburdened.
+                  </p>
+              </h3>
+
+               
+
+              </div>
+
+            </div>
+          </li>
+
+          <li>
+            <div class="blog-card">
+
+              <figure class="card-banner img-holder" style="--width: 1024; --height: 683;">
+                <img src="./assets/images/blog-4.jpg" width="1024" height="683" loading="lazy"
+                  alt="Homemade Business That Now Makes Hundreds Of Millions" class="img-cover">
+              </figure>
+
+              <div class="card-content">
+
+                <h3 class="h4">
+                  <h4><strong>Cognitive Behavioral Techniques</strong></h4>
+                  <p>
+                    Description: Changing negative thought patterns to manage stress better.
+                    Examples:
+                    Reframing: Replace stressful thoughts with positive ones.
+                    Positive affirmations: "I can handle this one step at a time."
+                    Benefits: Improves emotional resilience and problem-solving abilities.</p>
+              </h3>
+              </div>
+
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </section>  
+   <br>
+   <br>
+    <!-- images -->
+       <!-- Stress Management Programs Section -->
+    
+      <section class="section blog" aria-labelledby="blog-label">
+        <div class="container" >
+  
+          <h2 class="h2 section-title text-center" id="blog-label">Techniques & ProcessTracking</h2>
+       <section id="programs">
+        <h2>OUR PROGRAMS</h2>
+        <div class="program-grid">
+          <div class="program-card" style="background-image: url('./assets/images/img1.jpg'); width: 300px; height: 320px; background-position: center; background-size: cover;">
+            <h3>Mindfulness</h3>
+            <p>Practice staying present with guided meditations and breathing exercises.</p>
+            
+           <h3>Meditation</h3>
+           <p>Practices like guided meditation, mantra meditation, or visualization calm the mind and reduce anxiety.</p>
+          
+            <button class="btn-btn" onclick="selectProgram('Mindfulness')">Start Program</button>
+          </div>
+          <div class="program-card" style="background-image: url('./assets/images/img2.jpg'); width: 300px; height: 320px; background-position: center; background-size: cover;" >
+            <h3>Breathing Exercises</h3>
+            <p>Learn techniques to calm your mind and body to  improve focus and health.</p>
+            <h3>Gratitude Practices</h3>
+            <p>
+              Journaling or reflecting on things to be thankful for shifts focus from stressors to positive aspects. Maintain Stress Free</p>
+
+            <button class="btn-btn" onclick="selectProgram('Breathing Exercises')">Start Program</button>
+          </div>
+          <div class="program-card"   style="background-image: url('./assets/images/img3.jpg'); width: 300px; height: 320px; background-position: center; background-size: cover;">
+            <h3>Meditation</h3>
+            <p>Explore various meditation techniques to reduce anxiety and stress.</p>
+            <h3>Healthy Diet</h3>
+            <p>
+              Consuming a balanced diet with less caffeine, sugar, and processed foods supports mental and physical resilience.</p>
+            <button class="btn-btn" onclick="selectProgram('Meditation')">Start Program</button>
+          </div>
+          <div class="program-card" style="background-image: url('./assets/images/img4.jpg'); width: 300px; height: 320px; background-position: center; background-size: cover;">
+            <h3>Physical Relaxation</h3>
+            <p>Engage in exercises like yoga and progressive muscle relaxation.</p>
+            <h3>Laughter and Humor</h3>
+            <p>
+              Watching a funny video or engaging in playful activities boosts mood and reduces stress hormones and have stress free for brain</p>
+            <button class="btn-btn" onclick="selectProgram('Physical Relaxation')">Start Program</button>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Customizable Plan Section -->
+
+      <section id="custom-plan" class="hidden">
+        <h2>Custom Plan: <span id="selected-program"></span></h2>
+        <p>Build your personalized plan by selecting your preferences below:</p>
+        <form class="save" id="plan-form">
+          <label for="duration">Duration (minutes per session):</label>
+          <input type="number" id="duration" name="duration" min="5" max="60" required>
+          
+          <label for="frequency">Frequency (sessions per week):</label>
+          <input type="number" id="frequency" name="frequency" min="1" max="7" required>
+          
+          <label for="goal">Your Goal:</label>
+          <input type="text" id="goal" name="goal" placeholder="e.g., Reduce anxiety" required>
+          
+          <button type="submit">Save Plan</button>
+        </form>
+      </section>
+  
+      <!-- Progress Tracking Section -->
+       
+      <section id="progress">
+        <h2> PROGRESS TRACKING</h2>
+        <div class="progress-dashboard">
+          <div class="progress-item" >
+            <h3>Completed Sessions</h3>
+            <p id="completed-sessions">0</p>
+          </div>
+          <div class="progress-item">
+            <h3>Goal Achievements</h3>
+            <p id="goal-achievements">0%</p>
+          </div>
+          <div class="progress-item">
+            <h3>Milestones Reached</h3>
+            <p id="milestones">None yet</p>
+          </div>
+        </div>
+      </section>
+        </div>
+      </section>
+      <br/>
+<br/>
+     <!-- <section class="gallery">
+
+        <ul class="gallery-list">
+
+          <li>
+            <div class="gallery-card has-bg-image has-after"
+              style="background-image: url('./assets/images/gallery-1.jpg')">
+              <div class="card-content">
+
+                <h3 class="h3 card-title">Vases & Plant Pots</h3>
+
+                <a href="#" class="btn-link">
+                  <span class="span">View Gallery</span>
+
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="gallery-card has-bg-image has-after"
+              style="background-image: url('./assets/images/gallery-2.jpg')">
+              <div class="card-content">
+
+                <h3 class="h3 card-title">Clay Craft</h3>
+
+                <a href="#" class="btn-link">
+                  <span class="span">View Gallery</span>
+
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="gallery-card has-bg-image has-after"
+              style="background-image: url('./assets/images/gallery-3.jpg')">
+              <div class="card-content">
+
+                <h3 class="h3 card-title">Sculpturing</h3>
+
+                <a href="#" class="btn-link">
+                  <span class="span">View Gallery</span>
+
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="gallery-card has-bg-image has-after"
+              style="background-image: url('./assets/images/gallery-4.jpg')">
+              <div class="card-content">
+
+                <h3 class="h3 card-title">Accesories</h3>
+
+                <a href="#" class="btn-link">
+                  <span class="span">View Gallery</span>
+
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </div>
+          </li>
+
+        </ul>
+
+      </section> 
+
+
+ 
+          -->
+       
+          <!-- videos -->
+               <!-- Session Instructions Section -->
+
+      <section class="section blog" aria-labelledby="blog-label">
+      <div class="container">
+          
+       <h2 class="h2 section-title text-center" id="blog-label">Stress Management Sessions</h2>      
+        <section id="instructions">
+          <h2>How to Manage Stress</h2>
+          <p>Here are some effective techniques to help you reduce and manage stress:</p>
+          <ul>
+              <li><strong>Mindfulness Meditation:</strong> Practice being present and aware of your thoughts and feelings without judgment.</li>
+              <li><strong>Breathing Exercises:</strong> Engage in deep breathing techniques to help calm your mind and relax your body.</li>
+              <li><strong>Physical Relaxation:</strong> Use relaxation techniques such as progressive muscle relaxation (PMR) to release tension.</li>
+              <li><strong>Visualization:</strong> Imagine a peaceful and calming place to help your mind and body relax.</li>
+              <li><strong>Yoga:</strong> Engage in gentle yoga poses to improve physical relaxation and mental clarity.</li>
+          </ul>
+          <p>Click the videos below to learn more about each technique and how to incorporate them into your routine.</p>
+      </section>
+
+      <!-- Video Gallery Section -->
+      <section id="video-gallery">
+          <h2>Stress Management Video Gallery</h2>
+          <div class="video-grid">
+              <div class="video-item">
+                  <h3>Mindfulness Meditation</h3>
+                  <video width="300" controls>
+                      <source src="assets/images/video1.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <p>A short guide to practicing mindfulness meditation.</p>
+              </div>
+              <div class="video-item">
+                  <h3>Breathing Exercises</h3>
+                  <video width="300" controls>
+                      <source src="assets/images/video2.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <p>Learn deep breathing techniques to reduce stress.</p>
+              </div>
+              <div class="video-item">
+                  <h3>Physical Relaxation Techniques</h3>
+                  <video width="300" controls>
+                      <source src="assets/images/video3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <p>Relax your body and mind through physical relaxation methods.</p>
+              </div>
+              <!-- New video items added below -->
+              <div class="video-item">
+                  <h3>Visualization for Stress Relief</h3>
+                  <video width="300" controls>
+                      <source src="assets/images/video4.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <p>Learn how to visualize a peaceful setting to calm your mind.</p>
+              </div>
+              <div class="video-item">
+                  <h3>Yoga for Stress Management</h3>
+                  <video width="300" controls>
+                      <source src="assets/images/video5.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <p>Gentle yoga poses for relaxation and mental clarity.</p>
+              </div>
+              <div class="video-item">
+                  <h3>Progressive Muscle Relaxation (PMR)</h3>
+                  <video width="300" controls>
+                      <source src="assets/images/video6.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <p>Learn how to progressively relax each muscle group to reduce tension.</p>
+              </div>
+          </div>
+      </section>
+       
+      <!-- Interactive Guide Section -->
+      <section id="interactive-guide">
+          <h2>Interactive Guide: Breathing Exercises</h2>
+          <p>Follow the steps below to practice breathing exercises:</p>
+          <button onclick="startBreathingExercise()">Start Breathing Exercise</button>
+          <div id="breathing-instructions" class="hidden">
+              <p>1. Sit in a comfortable position.</p>
+              <p>2. Inhale deeply through your nose for 4 seconds.</p>
+              <p>3. Hold your breath for 4 seconds.</p>
+              <p>4. Exhale slowly through your mouth for 6 seconds.</p>
+              <p>Repeat this cycle for 5 minutes.</p>
+          </div>
+      </section>
+      </div></section>
+
+      <br/>
+      <br/>
+      <!--  -->
+      <!--  -->
+    <!-- Appointment Form -->
+    <section class="section blog" aria-labelledby="blog-label">
+      <div class="container">
+          
+       <h2 class="h2 section-title text-center" id="blog-label">Appointment Scheduler</h2>   
+
+    <section id="appointment-form-section">
+      <h2>Schedule an Appointment</h2>
+      <form id="appointment-form">
+          <label for="appointment-title">Appointment Title:</label>
+          <input type="text" id="appointment-title" placeholder="Enter title (e.g., Meditation Coaching)" required>
+
+          <label for="appointment-date">Date:</label>
+          <input type="date" id="appointment-date" required>
+
+          <label for="appointment-time">Time:</label>
+          <input type="time" id="appointment-time" required>
+
+          <button type="submit">Schedule Appointment</button>
+      </form>
+  </section>
+
+  <!-- Appointment List -->
+  <section id="appointments-section">
+      <h2>Upcoming Appointments</h2>
+      <ul id="appointments-list">
+          <!-- Appointments will be dynamically added here -->
+      </ul>
+  </section>
+  
+      </div></section>
+
+      <!--  -->
+  
+      </section>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!-- Farm Information Page (for logged-in users) -->
+     <section id="sample2-page" class="page" style="display: none">
+      <!--  -->
+       <!--  -->
+       <!-- Guide -->
+       <section class="section blog" aria-labelledby="blog-label">
+        <div class="container">
+            
+         <h2 class="h2 section-title text-center" id="blog-label">Stress Management Hub</h2>
+           <!-- Videos Section -->
+            <!-- Videos Section -->
+        <section id="videos-section">
+          <h2>Instructional Videos & Guides</h2>
+          <div class="video-grid">
+              <div class="video-item">
+                  <h3>Guided Meditation</h3>
+                  <video controls>
+                      <source src="assets/images/guide1.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <button class="rem" onclick="bookmarkVideo('Guided Meditation')">Bookmark</button>
+              </div>
+              <div class="video-item">
+                  <h3>Relaxation Techniques</h3>
+                  <video controls>
+                      <source src="assets/images/guide2.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <button class="rem" onclick="bookmarkVideo('Relaxation Techniques')">Bookmark</button>
+              </div>
+              <div class="video-item">
+                  <h3>Yoga for Stress Relief</h3>
+                  <video controls>
+                      <source src="assets/images/guide3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <button class="rem" onclick="bookmarkVideo('Yoga for Stress Relief')">Bookmark</button>
+              </div>
+      
+
+          </div>
+      </section>
+        
+      <!-- Reminders Section -->
+      <section id="reminders-section">
+          <h2>Set Custom Reminders</h2>
+          <form id="reminder-form">
+              <label for="reminder-title">Title:</label>
+              <input type="text" id="reminder-title" placeholder="Enter reminder title (e.g., Yoga Session)" required>
+
+              <label for="reminder-datetime">Date & Time:</label>
+              <input type="datetime-local" id="reminder-datetime" required>
+
+              <button class="rem" type="submit">Set Reminder</button>
+          </form>
+
+          <h3>Upcoming Reminders</h3>
+          <ul id="reminders-list">
+              <!-- Reminder items will be added here dynamically -->
+          </ul>
+      </section>
+       <br/>
+       <br/>
+         <!-- Premium Content Section -->
+         <section class="section blog" aria-labelledby="blog-label">
+          <div class="container">
+              
+           <h2 class="h2 section-title text-center" id="blog-label">Stress Management Hub</h2>
+         <section id="premium-section">
+          <h2>Premium Content</h2>
+          <div class="premium-grid">
+              <div class="premium-item">
+                  <h3>Advanced Meditation Program</h3>
+                  <p>Access a comprehensive 30-day guided meditation program.</p>
+                  <p>Start your journey with us</p>
+                  <p>*Yoga</p>
+                  <button onclick="purchaseContent('Advanced Meditation Program', 9.99)">Buy for $9.99</button>
+              </div>
+              <div class="premium-item">
+                  <h3>Weekly Live Coaching</h3>
+                  <p>professional stress management coaches.</p>
+                  <p>*Yoga</p>
+                  <p>*Meditation</p>
+                  <p>Special guidance</p>
+                  <button onclick="purchaseContent('Weekly Live Coaching', 19.99)">Buy for $19.99</button>
+              </div>
+              <div class="premium-item">
+                  <h3>Stress Management Masterclass</h3>
+                  <p>Exclusive video series and guides from experts with Diffrent Languages</p>
+                  <p>*Yoga</p>
+                  <p>*Meditation</p>
+                  <button onclick="purchaseContent('Stress Management Masterclass', 14.99)">Buy for $14.99</button>
+              </div>
+          </div>
+      </section>
+
+      <!-- Achievements and Rewards Section -->
+      <section id="achievements-section">
+          <h2>Achievements & Rewards</h2>
+          <div id="achievements-list">
+              <p>No achievements unlocked yet. Start your journey!</p>
+          </div>
+      </section>
+          </div></section>
+       
+
+
+        </div>
+       </section>
+       <br/>
+       <br/>
+
+       <!--questions  -->
+       <section class="section blog" aria-labelledby="blog-label">
+        <div class="container">
+            
+         <h2 class="h2 section-title text-center" id="blog-label">💬 Q&A Forum</h2>
+     <section class="container-questions">
+      <section id="questions-section" class="section">
+          
+          <div id="questions-list">
+              <!-- Questions will appear here -->
+          </div>
+      </section>
+     </section>
+        </div>
+       </section>
+       <br/>
+       <br/>
+
+
+
+       <!-- help and support -->
+<section class="help">
+  <h1>Help & Support</h1>
+  <p>We are here to assist you with any questions or issues you may have. Choose an option below for assistance.</p>
+</section >
+
+<div class="container-help">
+  <!-- Contact Section -->
+  <section id="contact">
+      <h2>Contact Us</h2>
+      <p>If you have any inquiries, feel free to reach out to us via email:</p>
+      <p><strong>Email:</strong> <a href="mailto:support@goalapp.com">support@Zenify.com</a></p>
+      <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+  </section>
+
+  <!-- Feedback Section -->
+  <section id="feedback">
+      <h2>Feedback</h2>
+      <p>Your feedback helps us improve the app! Please share your thoughts below:</p>
+      <form id="feedback-form">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" required>
+
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="message">Your Feedback:</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+
+          <button type="submit">Submit Feedback</button>
+      </form>
+      <p id="feedback-response"></p>
+  </section>
+
+
+</div>
+ </section>
+<br/>
+<br/>
+        <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+    <div class="container">
+
+      <div class="section footer-top">
+
+        <div class="footer-brand">
+
+          <a href="#"  onclick="showPage('home')" class="logo">Zenify<i class="fa-solid fa-dove"></i></a> 
+
+          <p class="footer-text">
+            Stress management has become an essential aspect of modern life, given the increasing pressures of work, relationships, and societal expectations. 
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="https://www.facebook.com/"  target="_blank" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="https://x.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4iLCJteCI6IjIifQ%3D%3D%22%7D" target="_blank" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="https://www.instagram.com/accounts/login/"   target="_blank" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="https://www.youtube.com/" target="_blank" class="social-link">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Explore Us</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">About Us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Collection</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Features</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Blog</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Support</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Account</a>
+          </li>
+
+          <li>
+            <a href="" class="footer-link">Feedback</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Support Center</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Our Stores</a>
+          </li>
+
+        </ul>
+
+        <div class="footer-list">
+
+          <p class="footer-list-title">Get in Touch</p>
+
+          <p class="footer-text">
+            Question or feedback?
+            We’d love to hear from you
+          </p>
+
+          <a href="#" class="btn" >
+            <span  class="span">Contact Us</span>
+             <p>+123 xxx 4567</p>
+           
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+
+        <p class="copyright">
+          Copyright 2024 <i class="fa-solid fa-dove"></i> 
+        </p>
+
+      </div>
+
+    </div>
+  </footer>
+     </section>
+       <!--  -->
+       <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+      </section>
+    </main>
+
+  
+   
+    <!-- script -->
+
+    <!-- icons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- wallpaper -->
+     <!--  -->
+    <!--  -- -->
+      <!--  -->
+      <!--  -->
+        <!--  -->
+    <!--  -- -->
+      <!--  -->
+      <!--  -->
+        <!--  -->
+    <!--  -- -->
+      <!--  -->
+      <!--  -->
+        <!--  -->
+    <!--  -- -->
+      <!--  -->
+      <!--  -->
+        <!--  -->
+    <!--  -- -->
+      <!--  -->
+      <!--  -->
+<script>
+
+
+
+   function myFunction() {
+     var password = document.getElementById("login-password");
+     var eye = document.getElementById("hide1");
+     var eyeslash = document.getElementById("hide2");
+
+
+     if(password.type  === 'password'){
+        password.type = "text";
+        eye.style.display = "block";
+        eyeslash.style.display = "none";
+     }
+     else{
+         password.type = "password";
+         eye.style.display = "none";
+         eyeslash.style.display = "block";
+     }
+   }
+   //forgot
+   document.getElementById("hide3").style.display = "none"
+   function myFunction2() {
+     var password = document.getElementById("forgot-password");
+     var eye = document.getElementById("hide3");
+     var eyeslash = document.getElementById("hide4");
+
+
+     if(password.type  === 'password'){
+        password.type = "text";
+        eye.style.display = "block";
+        eyeslash.style.display = "none";
+     }
+     else{
+         password.type = "password";
+         eye.style.display = "none";
+         eyeslash.style.display = "block";
+     }
+   }
+  //  register
+  document.getElementById("hide5").style.display = "none"
+   function myFunction3() {
+     var password = document.getElementById("register-password");
+     var eye = document.getElementById("hide5");
+     var eyeslash = document.getElementById("hide6");
+
+
+     if(password.type  === 'password'){
+        password.type = "text";
+        eye.style.display = "block";
+        eyeslash.style.display = "none";
+     }
+     else{
+         password.type = "password";
+         eye.style.display = "none";
+         eyeslash.style.display = "block";
+     }
+   }
+// update-password
+document.getElementById("hide7").style.display = "none"
+   function myFunction4() {
+     var password = document.getElementById("update-password");
+     var eye = document.getElementById("hide7");
+     var eyeslash = document.getElementById("hide8");
+
+
+     if(password.type  === 'password'){
+        password.type = "text";
+        eye.style.display = "block";
+        eyeslash.style.display = "none";
+     }
+     else{
+         password.type = "password";
+         eye.style.display = "none";
+         eyeslash.style.display = "block";
+     }
+   }
+
+//    
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// DOM elements
+const generalHeader = document.getElementById("general-header");
+const userHeader = document.getElementById("user-header");
+const homePage = document.getElementById("home-page");
+const loginPage = document.getElementById("login-page");
+const registerPage = document.getElementById("register-page");
+const UpdateUserPage = document.getElementById("update-user-page");
+const sample1Page = document.getElementById("sample1-page");
+const sample2Page = document.getElementById("sample2-page");
+const forgotpage = document.getElementById("forgot-page");
+
+// Login and Register Forms
+const loginForm = document.getElementById("login-form");
+const registerForm = document.getElementById("register-form");
+const updateForm = document.getElementById("update-form");
+
+// 
+
+
+  
+
+// Show the general user header if no one is logged in
+function showHeader() {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  if (loggedInUser) {
+    userHeader.style.display = "block";
+    generalHeader.style.display = "none";
+  } else {
+    generalHeader.style.display = "block";
+    userHeader.style.display = "none";
+  }
+}
+
+// Function to show specific page
+function showPage(page) {
+  // Hide all pages first
+  homePage.style.display = "none";
+  loginPage.style.display = "none";
+  registerPage.style.display = "none";
+  sample1Page.style.display = "none";
+  sample2Page.style.display = "none";
+  UpdateUserPage.style.display = "none";
+  forgotpage.style.display = "none";
+
+  // Show the selected page
+  if (page === "home") {
+    homePage.style.display = "block";
+  } else if (page === "login") {
+    loginPage.style.display = "block";
+  } else if (page === "register") {
+    registerPage.style.display = "block";
+  } else if (page === "sample1") {
+    sample1Page.style.display = "block";
+  }
+  else if (page === "sample2") {
+    sample2Page.style.display = "block";
+  }
+   else if (page === "update-user") {
+    UpdateUserPage.style.display = "block";
+  }
+  else if (page === "forgot-user") {
+    forgotpage.style.display = "block";
+  }
+}
+
+// Event listeners for general user navigation
+document
+  .getElementById("home-link")
+  .addEventListener("click", () => showPage("home"));
+document
+  .getElementById("login-link")
+  .addEventListener("click", () => showPage("login"));
+document
+  .getElementById("login2-link")
+  .addEventListener("click", () => showPage("login"));
+document
+  .getElementById("login3-link")
+  .addEventListener("click", () => showPage("login"));
+document
+  .getElementById("register-link")
+  .addEventListener("click", () => showPage("register"));
+document
+  .getElementById("forgot-link")
+  .addEventListener("click", () => {showPage("forgot-user")
+    updatefotgotpage()
+  });
+
+  document
+  .getElementById("update-link")
+  .addEventListener("click", () => {showPage("update-user")
+    const currentuser = JSON.parse(localStorage.getItem('loggedInUser'))
+    document.getElementById("update-name").value = currentuser.name
+    document.getElementById("update-username").value = currentuser.username
+    document.getElementById("update-password").value = currentuser.password
+
+    profileContainer.classList.remove("show");
+  overlay.classList.remove("active");
+    
+  });
+// Event listeners for logged-in user navigation
+
+document
+  .getElementById("home-user-link")
+  .addEventListener("click", () => showPage("home"));
+document
+  .getElementById("sample-1-link")
+  .addEventListener("click", () => showPage("sample1"));
+  document
+  .getElementById("sample-2-link")
+  .addEventListener("click", () => showPage("sample2"));
+
+// JavaScript for the nav toggle functionality
+const navToggleIcon = document.getElementById("navToggleIcon");
+const userNavLinks = document.querySelector(".user-nav-links");
+const userNavItems = document.querySelectorAll(".user-nav-links li a");
+
+navToggleIcon.addEventListener("click", () => {
+  // Toggle the 'active' class to show/hide nav links
+  userNavLinks.classList.toggle("active");
+});
+
+userNavItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    // userNavItems.classList.remove("open"); // Close the menu
+    userNavLinks.classList.toggle("active");
+    // alert("c");
+  });
+});
+
+//
+
+//
+
+document.addEventListener("DOMContentLoaded", () => {
+  const notificationIcon = document.getElementById("notificationIcon");
+  const profileIcon = document.getElementById("profileIcon");
+  const notificationContainer = document.getElementById(
+    "notificationContainer"
+  );
+  const profileContainer = document.getElementById("profileContainer");
+  const closeNotificationBtn = document.getElementById("closeNotificationBtn");
+  const closeProfileBtn = document.getElementById("closeProfileBtn");
+  const overlay = document.getElementById("overlay");
+
+  function closeAllContainers() {
+    notificationContainer.classList.remove("show");
+    profileContainer.classList.remove("show");
+    overlay.classList.remove("active");
+  }
+
+  // Show notification panel
+  notificationIcon.addEventListener("click", () => {
+    closeAllContainers(); // Close profile if open
+    notificationContainer.classList.add("show");
+    overlay.classList.add("active");
+  });
+
+  // Show profile panel
+  profileIcon.addEventListener("click", () => {
+    closeAllContainers(); // Close notification if open
+    profileContainer.classList.add("show");
+    overlay.classList.add("active");
+  });
+
+  // Close notification panel
+  closeNotificationBtn.addEventListener("click", () => {
+    closeAllContainers();
+  });
+
+  // Close profile panel
+  closeProfileBtn.addEventListener("click", () => {
+    closeAllContainers();
+  });
+
+  // Close panels by clicking on overlay
+  overlay.addEventListener("click", () => {
+    closeAllContainers();
+  });
+});
+
+const toggleButton = document.getElementById("modeToggle");
+const body = document.body;
+toggleButton.addEventListener("click", () => {
+  if (body.classList.contains("dark-mode")) {
+    // showToast("Toggle mode");
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
+  } else {
+    // showToast("Toggle mode");
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
+  }
+});
+
+// Register functionality
+registerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name =document.getElementById("register-name").value;
+  const username = document.getElementById("register-useremail").value;
+  const password = document.getElementById("register-password").value;
+  const uniqueId = crypto.randomUUID();
+
+
+ 
+  const confirmPassword = document.getElementById(
+    "register-confirmpassword"
+  ).value;
+  console.log(password);
+  if (password !== confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+if (
+    !/^[A-Za-z\s]+$/.test(name) 
+  ) {
+    alert("name should contain only letters .");
+    return;
+  }
+
+  
+
+  if (!username.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  if (
+    !/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
+      password
+    )
+  ) {
+    alert(
+      "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+    );
+    return;
+  }
+
+  
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Check if the user already exists
+  if (users.some((user) => user.username === username)) {
+    alert("User already exists!");
+    return;
+  }
+
+  users.push({ username, password,name, uniqueId });
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Registration successful!");
+  showPage("login");
+});
+
+// Login functionality
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const username = document.getElementById("login-username").value;
+  const password = document.getElementById("login-password").value;
+
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Check if the user exists and the password matches
+  const user = users.find(
+    (user) => user.username === username && user.password === password
+  );
+
+  if (user) {
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+    alert("Login successful!");
+    showHeader();
+    userupdate();
+    showPage("home");
+  } else {
+    alert("Invalid username or password!");
+  }
+});
+
+
+//update functionality
+updateForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // Get the form input values
+  const username = document.getElementById("update-username").value;
+  const password = document.getElementById("update-password").value;
+  const name = document.getElementById("update-name").value;
+  
+
+
+  // Retrieve users and loggedInUser from localStorage
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  if (!loggedInUser) {
+    alert("No logged-in user found!");
+    return;
+  }
+
+  // Find the user by uniqueId in the users array
+  const userIndex = users.findIndex(
+    (user) => user.uniqueId === loggedInUser.uniqueId
+  );
+
+  if (userIndex !== -1) {
+    // User found, update their username and password
+    users[userIndex].username = username;
+    users[userIndex].password = password;
+    users[userIndex].name = name;
+
+    // Update users array in localStorage
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Update the loggedInUser in localStorage with new username and password
+    localStorage.setItem(
+      "loggedInUser",
+      JSON.stringify({ username, password,name, uniqueId: loggedInUser.uniqueId })
+    );
+
+    console.log("Updated loggedInUser:", localStorage.getItem("loggedInUser"));
+    alert("User Details Updated Successfully!");
+
+    // Optionally redirect or display the home page
+    showPage("home");
+    userupdate()
+  } else {
+    // If the user is not found in the array
+    alert("User not found!");
+  }
+});
+
+// Logout functionality
+document.getElementById("logout-link").addEventListener("click", () => {
+  localStorage.removeItem("loggedInUser");
+  const overlay = document.getElementById('overlay')
+  const profilecontainer = document.getElementById('profileContainer')
+  profilecontainer.classList.remove("show")
+overlay.classList.remove("active")
+  alert("Logged out successfully!");
+  showHeader();
+  showPage("home");
+});
+
+// Initial load
+showHeader();
+showPage("home");
+
+
+  
+//   //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
+
+// // Function to handle like button click
+// function handleLike(event) {
+//   const wallpaperId = parseInt(event.target.dataset.id);
+//   const wallpaper = rainbowWallpapers.find((wp) => wp.id === wallpaperId);
+
+//   if (wallpaper) {
+//     if (wallpaper.likedUsers.includes(userId)) {
+//       // Remove user from likedUsers if already liked
+//       wallpaper.likedUsers = wallpaper.likedUsers.filter(
+//         (user) => user !== userId
+//       );
+//     } else {
+//       // Add user to likedUsers if not already liked
+//       wallpaper.likedUsers.push(userId);
+//     }
+
+//     // Update wallpapers in localStorage
+//     const updatedWallpapers = rainbowWallpapers.map((wp) => {
+//       if (wp.id === wallpaperId) {
+//         return {
+//           ...wp,
+//           likedUsers: wallpaper.likedUsers,
+//         };
+//       }
+//       return wp;
+//     });
+
+//     localStorage.setItem(
+//       "rainbowWallpapers",
+//       JSON.stringify(updatedWallpapers)
+//     );
+
+//     // Re-render wallpapers with the filtered list
+//     renderWallpapers();
+//   }
+// }
+
+ 
+// 
+function userupdate(){
+  const currentuser = JSON.parse(localStorage.getItem("loggedInUser"))
+  console.log(currentuser);
+  
+  document.getElementById("user-name-email").textContent = currentuser?.username
+  document.getElementById("user-name-text").textContent = currentuser?.name
+}
+userupdate()
+
+
+const verifyEl = document.getElementById("forgotVerifie")
+verifyEl.addEventListener('click',() => {
+  const users = JSON.parse(localStorage.getItem("users"));
+        console.log(users);
+        const email = document.getElementById("forgot-username").value
+        if (!users) {
+          alert("No users found in the database");
+          return;
+        }
+        const isUserSaved = users.find((user) => user.username === email);
+        console.log(email,isUserSaved);
+        
+        if (isUserSaved) {
+          document.getElementById("forgot-passwordContainer").style.display = "block";
+          document.getElementById("forgotVerifie").style.display = "none";
+          document.getElementById("forgotsubmit").style.display =
+            "block";
+          // verifyBtn.style.display = "none";
+          // document.getElementById("forgotten-username").disabled = "disabled";
+        } else {
+          alert("User is not registered");
+        }
+})
+
+
+function updatefotgotpage(){
+  document.getElementById("forgotsubmit").style.display = "none"
+  document.getElementById("forgot-passwordContainer").style.display = "none" 
+  document.getElementById("forgotVerifie").style.display = "block" 
+   
+  
+}
+
+updatefotgotpage()
+
+ const forgottenFormEl = document.getElementById("forgot-form")
+// 
+forgottenFormEl.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("forgot-username").value;
+  const password = document.getElementById("forgot-password").value;
+  
+
+  if (
+    !/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
+      password
+    )
+  ) {
+    alert(
+      "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+    );
+    return;
+  }
+  const users = JSON.parse(localStorage.getItem("users"));
+  console.log(users);
+  const userIndex = users.findIndex((user) => user.username === email);
+
+  if (userIndex !== -1) {
+    // User found, update their username and password
+    users[userIndex].password = password;
+
+    // Update users array in localStorage
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("User Password Updated Successfully!");
+    userupdate();
+    forgottenFormEl.reset();
+    loginForm.reset();
+
+    // Optionally redirect or display the home page
+    showPage("login");
+  }
+
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+});
+
+// 
+
+// // // help&support
+//  document.addEventListener("DOMContentLoaded", () => {
+//   const feedbackForm = document.getElementById("feedbackForm");
+
+//  feedbackForm.addEventListener("submit", (event) => {
+//     event.preventDefault();
+// const feedbackType = document.getElementById("feedbackType").value;
+//      const feedbackMessage = document.getElementById("feedbackMessage").value;
+
+//      alert(`Thank you for your ${feedbackType}! We appreciate your feedback.`);
+//     feedbackForm.reset();
+//    });
+//  });
+
+// // // Show or hide FAQ answer
+//  function toggleFAQ(element) {
+//   const answer = element.nextElementSibling;
+//  if (answer.style.display === "none" || !answer.style.display) {
+//      answer.style.display = "block";
+//    } else {
+//      answer.style.display = "none";
+//    }
+//  }
+
+// // // Simulate tutorial details view
+//  function showTutorialDetails(tutorialId) {
+//    alert(`Displaying details for: ${tutorialId}`);
+//  }
+
+// // 
+// /*library*/
+// // 
+// // Sample data for a larger library of challenges
+// const challenges = [
+//   {
+//       title: "Spaghetti Carbonara",
+//       description: "A classic Italian pasta dish with a creamy sauce.",
+//       rules: "Use only authentic Italian ingredients.",
+//       ingredients: ["Spaghetti", "Eggs", "Parmesan", "Pancetta", "Black pepper"],
+//       difficulty: "medium",
+//       rating: 4.5,
+//       reviews: 45
+//   },
+//   {
+//       title: "Vegetable Stir-Fry",
+//       description: "A quick and healthy stir-fry with fresh vegetables.",
+//       rules: "No frozen vegetables allowed.",
+//       ingredients: ["Broccoli", "Carrots", "Bell Peppers", "Soy Sauce", "Ginger"],
+//       difficulty: "easy",
+//       rating: 4.0,
+//       reviews: 34
+//   },
+//   {
+//       title: "Beef Wellington",
+//       description: "A challenging dish of beef tenderloin wrapped in puff pastry.",
+//       rules: "Ensure proper pastry browning.",
+//       ingredients: ["Beef Tenderloin", "Mushrooms", "Puff Pastry", "Prosciutto", "Mustard"],
+//       difficulty: "hard",
+//       rating: 4.9,
+//       reviews: 120
+//   },
+//   {
+//       title: "Miso Ramen",
+//       description: "A savory Japanese soup with a miso-flavored broth.",
+//       rules: "Homemade broth is recommended.",
+//       ingredients: ["Ramen Noodles", "Miso Paste", "Green Onions", "Soft Boiled Egg", "Pork"],
+//       difficulty: "medium",
+//       rating: 4.6,
+//       reviews: 75
+//   },
+//   {
+//       title: "Classic Margherita Pizza",
+//       description: "A simple but delicious pizza with tomatoes, mozzarella, and basil.",
+//       rules: "Use only fresh basil.",
+//       ingredients: ["Pizza Dough", "Tomatoes", "Mozzarella", "Basil", "Olive Oil"],
+//       difficulty: "easy",
+//       rating: 4.3,
+//       reviews: 88
+//   },
+// {
+//     title: "Chocolate Soufflé",
+//     description: "A delicate dessert with a rich chocolate flavor.",
+//     rules: "Follow precise baking instructions for best results.",
+//     ingredients: ["Dark chocolate", "Eggs", "Butter", "Sugar"],
+//     difficulty: "hard",
+//     rating: 4.8,
+//     reviews: 67
+// },
+// {
+//     title: "Greek Salad",
+//     description: "A refreshing salad with Mediterranean flavors.",
+//     rules: "No modifications to traditional ingredients allowed.",
+//     ingredients: ["Tomatoes", "Cucumber", "Onion", "Feta", "Olives"],
+//     difficulty: "easy",
+//     rating: 4.2,
+//     reviews: 32
+// },
+// {
+//   title: "French Onion Soup",
+//   description: "A comforting soup topped with cheese and crusty bread.",
+//   rules: "Cook onions until deeply caramelized.",
+//   ingredients: ["Onions", "Beef Broth", "Gruyère Cheese", "French Bread", "Butter"],
+//   difficulty: "medium",
+//   rating: 4.7,
+//   reviews: 52
+// },
+// {
+//   title: "Chicken Tikka Masala",
+//   description: "Tender chicken in a spiced, creamy tomato sauce.",
+//   rules: "Marinate chicken overnight for best flavor.",
+//   ingredients: ["Chicken", "Yogurt", "Tomato", "Garlic", "Garam Masala"],
+//   difficulty: "medium",
+//   rating: 4.6,
+//   reviews: 63
+// },
+// {
+//   title: "Banana Bread",
+//   description: "A moist, sweet bread perfect for overripe bananas.",
+//   rules: "Use only ripe bananas for flavor.",
+//   ingredients: ["Bananas", "Flour", "Sugar", "Eggs", "Butter"],
+//   difficulty: "easy",
+//   rating: 4.5,
+//   reviews: 150
+// },
+// {
+//   title: "Eggplant Parmesan",
+//   description: "Layers of breaded eggplant with marinara and melted cheese.",
+//   rules: "Serve with fresh basil on top.",
+//   ingredients: ["Eggplant", "Marinara Sauce", "Mozzarella", "Parmesan", "Breadcrumbs"],
+//   difficulty: "medium",
+//   rating: 4.4,
+//   reviews: 48
+// },
+// {
+//   title: "Pho",
+//   description: "A Vietnamese soup with rice noodles and a fragrant broth.",
+//   rules: "Simmer broth for hours for best flavor.",
+//   ingredients: ["Beef Bones", "Rice Noodles", "Star Anise", "Ginger", "Bean Sprouts"],
+//   difficulty: "hard",
+//   rating: 4.8,
+//   reviews: 67
+// }
+// ];
+
+// // Function to display challenges
+// function displayChallenges(filteredChallenges) {
+//   const challengeList = document.getElementById("challenge-list");
+//   challengeList.innerHTML = "";
+
+//   filteredChallenges.forEach(challenge => {
+//       const card = document.createElement("div");
+//       card.className = "challenge-card";
+
+//       card.innerHTML = `
+//           <h3>${challenge.title}</h3>
+//           <p>${challenge.description}</p>
+//           <p><strong>Rules:</strong> ${challenge.rules}</p>
+//           <p><strong>Ingredients:</strong> ${challenge.ingredients.join(", ")}</p>
+//           <p class="difficulty"><strong>Difficulty:</strong> ${challenge.difficulty}</p>
+//           <p class="rating"><strong>Rating:</strong> ${challenge.rating} / 5</p>
+//           <p class="reviews">${challenge.reviews} reviews</p>
+//       `;
+
+//       challengeList.appendChild(card);
+//   });
+// }
+
+// // Function to filter and sort challenges
+// function filterChallenges() {
+//   const searchQuery = document.getElementById("search-bar").value.toLowerCase();
+//   const difficulty = document.getElementById("difficulty-select").value;
+//   const sortOption = document.getElementById("sort-select").value;
+
+//   let filteredChallenges = challenges.filter(challenge => {
+//       const matchesSearch = challenge.title.toLowerCase().includes(searchQuery);
+//       const matchesDifficulty = difficulty === "all" || challenge.difficulty === difficulty;
+
+//       return matchesSearch && matchesDifficulty;
+//   });
+
+//   // Sort based on rating
+//   filteredChallenges.sort((a, b) => {
+//       return sortOption === "high-to-low"
+//           ? b.rating - a.rating
+//           : a.rating - b.rating;
+//   });
+
+//   displayChallenges(filteredChallenges);
+// }
+
+// // Initial display of all challenges
+// displayChallenges(challenges);
+
+// // Event listeners for search, filter, and sort
+// document.getElementById("search-bar").addEventListener("input", filterChallenges);
+// document.getElementById("difficulty-select").addEventListener("change", filterChallenges);
+// document.getElementById("sort-select").addEventListener("change", filterChallenges);
+
+// // 
+// // Event listener for form submission
+// document.getElementById('recipe-form').addEventListener('submit', function(event) {
+//   event.preventDefault();
+
+//   // Get input values
+//   const recipeName = document.getElementById('recipe-name').value;
+//   const description = document.getElementById('recipe-description').value;
+//   const ingredients = document.getElementById('recipe-ingredients').value;
+//   const instructions = document.getElementById('recipe-instructions').value;
+//   const photoFile = document.getElementById('recipe-photo').files[0];
+
+//   // Create recipe card
+//   const recipeCard = document.createElement('div');
+//   recipeCard.className = 'recipe-card';
+
+//   // Display photo if uploaded
+//   let photoHTML = '';
+//   if (photoFile) {
+//       const photoURL = URL.createObjectURL(photoFile);
+//       photoHTML = `<img src="${photoURL}" alt="${recipeName}" class="recipe-photo">`;
+//   }
+
+//   // Populate recipe card
+//   recipeCard.innerHTML = `
+//       <h3>${recipeName}</h3>
+//       ${photoHTML}
+//       <p><strong>Description:</strong> ${description}</p>
+//       <p><strong>Ingredients:</strong> ${ingredients}</p>
+//       <p><strong>Instructions:</strong> ${instructions}</p>
+//       <div class="recipe-interactions">
+//           <button class="like-button" onclick="likeRecipe(this)">Like (<span>0</span>)</button>
+//           <button class="comment-button" onclick="toggleCommentSection(this)">Comments</button>
+//       </div>
+//       <div class="comment-section" style="display: none;">
+//           <input type="text" placeholder="Add a comment..." onkeydown="addComment(event, this)">
+//           <div class="comments"></div>
+//       </div>
+//   `;
+
+//   // Append to recipe list
+//   document.getElementById('recipe-list').appendChild(recipeCard);
+
+//   // Reset form
+//   document.getElementById('recipe-form').reset();
+// });
+
+// // Like button functionality
+// function likeRecipe(button) {
+//   const countSpan = button.querySelector('span');
+//   let count = parseInt(countSpan.textContent);
+//   countSpan.textContent = ++count;
+// }
+
+// // Toggle comment section visibility
+// function toggleCommentSection(button) {
+//   const commentSection = button.closest('.recipe-card').querySelector('.comment-section');
+//   commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+// }
+
+// // Add comment on Enter key press
+// function addComment(event, input) {
+//   if (event.key === 'Enter' && input.value.trim() !== '') {
+//       const commentSection = input.nextElementSibling;
+//       const comment = document.createElement('p');
+//       comment.textContent = input.value;
+//       commentSection.appendChild(comment);
+//       input.value = '';
+//   }
+// }
+// let timer;
+// let timeLeft = 600; // 10 minutes in seconds
+
+// const startChallenge = () => {
+//     document.getElementById("start-button").disabled = true;
+//     document.getElementById("feedback-button").disabled = false;
+//     timer = setInterval(updateTimer, 1000);
+// };
+
+// const updateTimer = () => {
+//     if (timeLeft <= 0) {
+//         clearInterval(timer);
+//         alert("Time is up! Challenge completed.");
+//         document.getElementById("feedback-button").disabled = true;
+//         return;
+//     }
+
+//     timeLeft--;
+//     const minutes = Math.floor(timeLeft / 60);
+//     const seconds = timeLeft % 60;
+//     document.getElementById("time").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+// };
+
+// const giveFeedback = () => {
+//     const feedbackContainer = document.getElementById("feedback-container");
+//     const feedbackMessage = document.createElement("div");
+//     feedbackMessage.innerText = "Great job on your omelette! Keep it up!";
+//     feedbackMessage.className = "feedback-message";
+//     feedbackContainer.appendChild(feedbackMessage);
+// };
+
+// // Event listeners for buttons
+// document.getElementById("start-button").addEventListener("click", startChallenge);
+// document.getElementById("feedback-button").addEventListener("click", giveFeedback);
+//  
+// 
+// 
+// 
+// 
+// new script
+// script.js
+
+let completedSessions = 0;
+let goalAchievements = 0;
+let milestones = [];
+
+function selectProgram(program) {
+  // Display the customizable plan section
+  document.getElementById("custom-plan").classList.remove("hidden");
+  document.getElementById("selected-program").textContent = program;
+  scrollToSection("custom-plan");
+}
+
+function scrollToSection(sectionId) {
+  document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
+}
+
+document.getElementById("plan-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("Your personalized plan has been saved!");
+
+  // Simulate session completion and progress tracking
+  completedSessions += 1;
+  goalAchievements += 10;
+  milestones.push("Completed first session");
+
+  // Update progress
+  updateProgress();
+  scrollToSection("progress");
+});
+
+function updateProgress() {
+  document.getElementById("completed-sessions").textContent = completedSessions;
+  document.getElementById("goal-achievements").textContent = `${goalAchievements}%`;
+  document.getElementById("milestones").textContent = milestones.join(", ") || "None yet";
+}
+// 
+// 
+// video
+// Function to start the breathing exercise interactive guide
+function startBreathingExercise() {
+    // Show the breathing instructions
+    const instructions = document.getElementById('breathing-instructions');
+    instructions.classList.remove('hidden');
+    
+    // Change the button text
+    const button = document.querySelector('#interactive-guide button');
+    button.textContent = "Stop Exercise";
+    button.setAttribute("onclick", "stopBreathingExercise()");
+}
+
+// Function to stop the breathing exercise and hide instructions
+function stopBreathingExercise() {
+    const instructions = document.getElementById('breathing-instructions');
+    instructions.classList.add('hidden');
+    
+    // Reset the button
+    const button = document.querySelector('#interactive-guide button');
+    button.textContent = "Start Breathing Exercise";
+    button.setAttribute("onclick", "startBreathingExercise()");
+}
+
+// 
+// 
+// 
+// 
+// Select DOM elements
+const appointmentForm = document.getElementById('appointment-form');
+const appointmentsList = document.getElementById('appointments-list');
+
+// Function to add an appointment
+function addAppointment(event) {
+    event.preventDefault();
+
+    // Get form data
+    const title = document.getElementById('appointment-title').value;
+    const date = document.getElementById('appointment-date').value;
+    const time = document.getElementById('appointment-time').value;
+
+    // Create new appointment element
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+        <div>
+            <strong>${title}</strong><br>
+            ${date} at ${time}
+        </div>
+        <div class="actions">
+            <button  onclick="editAppointment(this)">Edit</button>
+            <button onclick="deleteAppointment(this)">Delete</button>
+        </div>
+    `;
+
+    // Add to the list
+    appointmentsList.appendChild(listItem);
+
+    // Clear the form
+    appointmentForm.reset();
+
+    // Notify the user
+    scheduleReminder(title, date, time);
+}
+
+// Function to edit an appointment
+function editAppointment(button) {
+    const listItem = button.parentElement.parentElement;
+    const details = listItem.querySelector('div').innerText.split('\n');
+    const [title, datetime] = details;
+
+    // Prefill the form with current details
+    document.getElementById('appointment-title').value = title;
+    const [date, time] = datetime.split(' at ');
+    document.getElementById('appointment-date').value = date;
+    document.getElementById('appointment-time').value = time;
+
+    // Remove the current list item
+    listItem.remove();
+}
+
+// Function to delete an appointment
+function deleteAppointment(button) {
+    const listItem = button.parentElement.parentElement;
+    listItem.remove();
+}
+
+// Function to schedule a reminder
+function scheduleReminder(title, date, time) {
+    const appointmentDate = new Date(`${date}T${time}`);
+    const now = new Date();
+
+    const delay = appointmentDate - now;
+    if (delay > 0) {
+        setTimeout(() => {
+            alert(`Reminder: Your appointment for "${title}" is scheduled at ${time} on ${date}.`);
+        }, delay);
+    }
+}
+
+// Attach event listener
+appointmentForm.addEventListener('submit', addAppointment);
+
+// 
+// 
+// 
+// // Bookmark Video
+function bookmarkVideo(title) {
+  alert(`The video "${title}" has been bookmarked!`);
+}
+
+// Reminder Form and List
+const reminderForm = document.getElementById('reminder-form');
+const remindersList = document.getElementById('reminders-list');
+
+reminderForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const title = document.getElementById('reminder-title').value;
+  const datetime = document.getElementById('reminder-datetime').value;
+
+  if (!title || !datetime) {
+      alert('Please provide valid details.');
+      return;
+  }
+
+  const reminderItem = document.createElement('li');
+  reminderItem.innerHTML = `
+      <span>${title} - ${new Date(datetime).toLocaleString()}</span>
+      <div>
+          <button class="edit" onclick="editReminder(this)">Edit</button>
+          <button onclick="deleteReminder(this)">Delete</button>
+      </div>
+  `;
+
+  remindersList.appendChild(reminderItem);
+
+  scheduleNotification(title, datetime);
+
+  reminderForm.reset();
+});
+
+// Edit Reminder
+function editReminder(button) {
+  const listItem = button.parentElement.parentElement;
+  const details = listItem.querySelector('span').textContent.split(' - ');
+  const title = details[0];
+  const datetime = new Date(details[1]).toISOString().slice(0, 16);
+
+  document.getElementById('reminder-title').value = title;
+  document.getElementById('reminder-datetime').value = datetime;
+
+  listItem.remove();
+}
+
+// Delete Reminder
+function deleteReminder(button) {
+  button.parentElement.parentElement.remove();
+}
+
+// Schedule Notifications
+function scheduleNotification(title, datetime) {
+  const reminderTime = new Date(datetime).getTime();
+  const currentTime = Date.now();
+  const delay = reminderTime - currentTime;
+
+  if (delay > 0) {
+      setTimeout(() => {
+          alert(`Reminder: "${title}"`);
+      }, delay);
+  }
+}
+
+// Push Notifications
+if ('Notification' in window) {
+  Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+          new Notification('Welcome to Stress Management Hub!', {
+              body: 'Stay consistent with your sessions and reminders.',
+              icon: 'icons/notification.png',
+          });
+      }
+  });
+}
+// 
+// 
+// 
+// primum
+// Placeholder for purchased content and achievements
+let purchasedContent = [];
+let achievements = [];
+
+// Handle Content Purchase
+function purchaseContent(contentName, price) {
+    if (purchasedContent.includes(contentName)) {
+        alert(`You have already purchased "${contentName}".`);
+        return;
+    }
+
+    const confirmPurchase = confirm(`Confirm purchase of "${contentName}" for $${price.toFixed(2)}?`);
+    if (confirmPurchase) {
+        purchasedContent.push(contentName);
+        alert(`Thank you for purchasing "${contentName}"!`);
+
+        // Unlock achievements
+        unlockAchievement(`Purchased: ${contentName}`);
+    }
+}
+
+// Unlock Achievement
+function unlockAchievement(achievementName) {
+    if (!achievements.includes(achievementName)) {
+        achievements.push(achievementName);
+        updateAchievementsDisplay();
+        alert(`New achievement unlocked: "${achievementName}"!`);
+    }
+}
+
+// Update Achievements Display
+function updateAchievementsDisplay() {
+    const achievementsList = document.getElementById('achievements-list');
+    achievementsList.innerHTML = '';
+
+    achievements.forEach((achievement) => {
+        const badge = document.createElement('div');
+        badge.classList.add('achievement-badge');
+        badge.textContent = achievement;
+        achievementsList.appendChild(badge);
+    });
+
+    if (achievements.length === 0) {
+        achievementsList.innerHTML = '<p>No achievements unlocked yet. Start your journey!</p>';
+    }
+}
+
+// Push Notifications
+if ('Notification' in window) {
+    Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+            new Notification('Welcome to Stress Management Hub!', {
+                body: 'Stay consistent and unlock achievements as you progress.',
+                icon: 'icons/notification.png', // Replace with a valid icon path
+            });
+        }
+    });
+}
+// 
+// 
+// 
+// questions
+// questions
+// Array to store questions and answers
+const questions = [
+    {
+        id: 1,
+        text: "what is mindfulness?",
+        answer: "Mindfulness is the practice of being fully present and engaged in the current moment without judgment. It is a great tool for reducing stress."
+    },
+    {
+        id: 2,
+        text: "how can i manage stress?",
+        answer: "You can manage stress by practicing mindfulness, exercising regularly, maintaining a balanced diet, and using relaxation techniques like deep breathing."
+    },
+    {
+        id: 3,
+        text: "what is deep breathing",
+        answer: "Deep breathing is a relaxation technique where you take slow, deep breaths to calm your mind and reduce stress."
+    },
+    {
+        id: 4,
+        text: "how can meditation help",
+        answer: "Meditation helps reduce stress by promoting relaxation, increasing mindfulness, and improving emotional health"
+    },
+    {
+        id: 5,
+        text: "what is progressive muscle relaxation",
+        answer: "Progressive muscle relaxation involves tensing and then relaxing different muscle groups to reduce physical tension and stress."
+    }
+    
+
+];
+
+// Elements from the DOM
+const questionsList = document.getElementById('questions-list');
+
+// Function to render all questions
+function renderQuestions() {
+    questionsList.innerHTML = ''; // Clear current list
+
+    questions.forEach(question => {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('question');
+        questionElement.innerHTML = `
+            <div class="question-header">
+                <span>Q${question.id}: ${question.text}</span>
+                <button class="toggle-button" onclick="toggleAnswer(${question.id})">+</button>
+            </div>
+            <div id="answer-${question.id}" class="question-body">
+                <div class="answer">${question.answer}</div>
+            </div>
+        `;
+        questionsList.appendChild(questionElement);
+    });
+}
+
+// Function to toggle the visibility of an answer
+function toggleAnswer(questionId) {
+    const answerElement = document.getElementById(`answer-${questionId}`);
+    const button = event.target;
+
+    if (answerElement.style.display === 'none' || answerElement.style.display === '') {
+        answerElement.style.display = 'block';
+        button.textContent = '-'; // Change button to show "-" when answer is visible
+    } else {
+        answerElement.style.display = 'none';
+        button.textContent = '+'; // Change button to show "+" when answer is hidden
+    }
+}
+
+// Initial render of questions
+renderQuestions();
+// 
+// 
+
+// Handle feedback form submission
+document.getElementById('feedback-form').addEventListener('submit', function (event) {
+    event.preventDefault();  // Prevent page reload
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // Simulate feedback submission
+    const responseMessage = `Thank you for your feedback, ${name}! We will get back to you shortly at ${email}.`;
+
+    // Clear form fields after submission
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('message').value = '';
+
+    // Display success message
+    document.getElementById('feedback-response').textContent = responseMessage;
+});
+
+
+
+</script>
+    
+
+    
+    
+    
+    
+  </body>
+</html>
